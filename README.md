@@ -2,6 +2,8 @@
 
 Voorbeeldimplementatie van het **Informatie Ondersteunde Werkomgeving (IOU) concept** voor de Nederlandse overheid.
 
+> **⚠️ Disclaimer**: Dit IOU-concept wordt momenteel als pilot beproefd binnen **Provincie Flevoland**. Het is geen landelijk ingevoerd systeem en wordt niet gebruikt door de gehele Nederlandse overheid. Deze repository bevat een demonstrator ter illustratie van de conceptuele mogelijkheden.
+
 ## Overzicht
 
 Dit project demonstreert hoe het IOU-concept praktisch geïmplementeerd kan worden, met focus op:
