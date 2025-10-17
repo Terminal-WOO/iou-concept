@@ -64,12 +64,12 @@ IOU-concept/
 │       ├── related-domains.html         # Netwerk visualisatie
 │       ├── ai-suggestions.html          # AI metadata suggesties
 │       └── apps/                        # Context-aware applicaties
-│           ├── data-explorer.html       # Data visualisatie (OpenStreetMap)
+│           ├── data-verkenner.html       # Data visualisatie (OpenStreetMap)
 │           ├── document-generator.html
-│           ├── stakeholder-mapper.html
-│           ├── compliance-checker.html
-│           ├── timeline-viewer.html
-│           └── collaboration-hub.html
+│           ├── belanghebbenden-kaart.html
+│           ├── nalevingscontrole.html
+│           ├── tijdlijn-weergave.html
+│           └── samenwerkingscentrum.html
 │
 ├── TESTDATA.md                     # Test scenario's en SQL voorbeelden
 ├── DEPLOYMENT.md                   # GitHub Pages deployment guide
@@ -205,12 +205,12 @@ Interactieve demo van de werkomgeving met **Provincie Flevoland huisstijl**:
 - **`ai-suggestions.html`**: Interactieve AI metadata suggesties met accept/reject/modify functionaliteit
 
 #### Context-Aware Apps (in `/apps`)
-- **📊 Data Explorer**: OpenStreetMap visualisatie met Leaflet.js, interactieve provinciedata
-- **📝 Document Generator**: Template-based document generatie met metadata
-- **👥 Stakeholder Mapper**: Netwerk visualisatie van betrokken partijen
-- **✅ Compliance Checker**: Automatische controle op Woo, AVG, Archiefwet
-- **📅 Timeline Viewer**: Chronologisch overzicht van alle activiteiten
-- **💬 Collaboration Hub**: Real-time samenwerking binnen context
+- **📊 Data Verkenner**: OpenStreetMap visualisatie met Leaflet.js, interactieve provinciedata
+- **📝 Document Generator**: Op basis van sjablonen document generatie met metadata
+- **👥 Belanghebbenden Kaart**: Netwerk visualisatie van betrokken partijen
+- **✅ Nalevingscontrole**: Automatische controle op Woo, AVG, Archiefwet
+- **📅 Tijdlijn Weergave**: Chronologisch overzicht van alle activiteiten
+- **💬 Samenwerkingscentrum**: Real-time samenwerking binnen context
 
 #### Styling (`flevoland-theme.css`)
 - CSS variabelen voor consistente huisstijl
@@ -378,8 +378,8 @@ open src/frontend/context_dashboard.html
 # Woo detail pagina
 open src/frontend/document-detail-woo.html
 
-# Data Explorer met OpenStreetMap
-open src/frontend/apps/data-explorer.html
+# Data Verkenner met OpenStreetMap
+open src/frontend/apps/data-verkenner.html
 ```
 
 **Optie 3: Lokaal - Met webserver**
@@ -390,7 +390,7 @@ python -m http.server 8080
 
 # Open in browser:
 # - Dashboard: http://localhost:8080/context_dashboard.html
-# - Apps: http://localhost:8080/apps/data-explorer.html
+# - Apps: http://localhost:8080/apps/data-verkenner.html
 # - Alle pagina's zijn klikbaar en volledig functioneel
 ```
 
@@ -435,7 +435,7 @@ ai_service = AIMetadataService(model_provider="azure")
 
 ### 2. Project Circulaire Economie
 **Context**: Project
-- Data Explorer toont relevante cijfers
+- Data Verkenner toont relevante cijfers
 - Gerelateerde beleidsstukken automatisch getoond
 - Samenwerking met andere organisaties (Gemeente Almere)
 - Timeline van alle activiteiten

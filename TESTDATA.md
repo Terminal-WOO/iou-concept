@@ -129,12 +129,12 @@ Complete testdata voor alle sectoren van de Informatie Ondersteunde Werkomgeving
 
 ### Apps (8)
 
-1. **Data Explorer** - Data analyse en visualisatie
+1. **Data Verkenner** - Data analyse en visualisatie
 2. **Document Generator** - Documenten met auto-metadata
-3. **Stakeholder Mapper** - Netwerk visualisatie
-4. **Compliance Checker** - Woo/AVG/Archivering check
-5. **Timeline Viewer** - Chronologisch overzicht
-6. **Collaboration Hub** - Chat en samenwerking
+3. **Belanghebbenden Kaart** - Netwerk visualisatie
+4. **Nalevingscontrole** - Woo/AVG/Archivering check
+5. **Tijdlijn Weergave** - Chronologisch overzicht
+6. **Samenwerkingscentrum** - Chat en samenwerking
 7. **GEO Visualizer** - Geografische weergave
 8. **Subsidie Calculator** - Subsidieberekeningen
 
@@ -340,7 +340,7 @@ WHERE domain_name = 'Circulaire Economie Flevoland 2025';
 INSERT INTO user_app_usage (user_id, app_id, domain_id, usage_count)
 VALUES (
     'd0000000-0000-0000-0000-000000000001',
-    (SELECT id FROM apps WHERE name = 'Data Explorer'),
+    (SELECT id FROM apps WHERE name = 'Data Verkenner'),
     'e0000000-0000-0000-0000-000000000001',
     1
 )
@@ -366,7 +366,7 @@ SELECT
 FROM information_objects
 WHERE domain_id = 'e0000000-0000-0000-0000-000000000014';
 
--- 4. Gebruik Compliance Checker app
+-- 4. Gebruik Nalevingscontrole app
 -- (registreer in audit_log en user_app_usage)
 ```
 
@@ -377,7 +377,7 @@ SELECT * FROM information_objects
 WHERE object_type = 'data' 
     AND mime_type IN ('text/csv', 'application/vnd.ms-excel');
 
--- 2. Open Data Explorer
+-- 2. Open Data Verkenner
 -- 3. Filter op project
 SELECT * FROM v_enriched_information_objects
 WHERE domain_type = 'project' 
