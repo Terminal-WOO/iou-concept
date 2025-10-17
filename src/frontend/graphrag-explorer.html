@@ -1,416 +1,770 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GraphRAG Explorer - Kennisgraaf Visualisatie</title>
-    <link rel="stylesheet" href="flevoland-theme.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GraphRAG Explorer - IOU Concept</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
-        .container {
-            display: flex;
-            height: 100vh;
-        }
+            body {
+                font-family: "Segoe UI", Arial, sans-serif;
+                background: #f5f5f5;
+            }
 
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(135deg, #0066CC 0%, #004C99 100%);
-            color: white;
-            padding: 20px;
-            overflow-y: auto;
-        }
+            .header {
+                background: linear-gradient(135deg, #0066cc 0%, #004c99 100%);
+                color: white;
+                padding: 20px;
+                text-align: center;
+            }
 
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
+            .header h1 {
+                font-size: 28px;
+                margin-bottom: 5px;
+            }
 
-        .header {
-            background: white;
-            padding: 15px 20px;
-            border-bottom: 2px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+            .header p {
+                font-size: 14px;
+                opacity: 0.9;
+            }
 
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #0066CC;
-        }
+            .container {
+                max-width: 1400px;
+                margin: 20px auto;
+                padding: 0 20px;
+            }
 
-        .stats {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-        }
+            .info-box {
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
 
-        .stat-item {
-            text-align: center;
-        }
+            .info-box h2 {
+                color: #0066cc;
+                margin-bottom: 10px;
+                font-size: 18px;
+            }
 
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #0066CC;
-        }
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+                margin-bottom: 20px;
+            }
 
-        .stat-label {
-            font-size: 11px;
-            color: #666;
-        }
+            .stat-card {
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
 
-        #graph {
-            flex: 1;
-            background: #fafafa;
-        }
+            .stat-value {
+                font-size: 36px;
+                font-weight: bold;
+                color: #0066cc;
+                margin-bottom: 5px;
+            }
 
-        .sidebar h2 {
-            margin-top: 0;
-            font-size: 18px;
-            border-bottom: 2px solid rgba(255,255,255,0.3);
-            padding-bottom: 10px;
-        }
+            .stat-label {
+                color: #666;
+                font-size: 14px;
+            }
 
-        .info-section {
-            margin: 20px 0;
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 8px;
-        }
+            #mynetwork {
+                width: 100%;
+                height: 700px;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                background: white;
+            }
 
-        .info-section h3 {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-        }
+            .legend {
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                margin-top: 20px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
 
-        .info-section p {
-            margin: 5px 0;
-            font-size: 13px;
-            line-height: 1.4;
-        }
+            .legend h3 {
+                color: #0066cc;
+                margin-bottom: 15px;
+                font-size: 16px;
+            }
 
-        .legend {
-            margin-top: 20px;
-        }
+            .legend-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 10px;
+            }
 
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin: 8px 0;
-            font-size: 13px;
-        }
+            .legend-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
 
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
+            .legend-color {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                border: 2px solid #333;
+            }
 
-        .controls {
-            padding: 15px 20px;
-            background: white;
-            border-top: 1px solid #eee;
-            display: flex;
-            gap: 10px;
-        }
+            .controls {
+                margin-top: 20px;
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+            }
 
-        .btn {
-            padding: 8px 15px;
-            border: 1px solid #0066CC;
-            background: white;
-            color: #0066CC;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-        }
+            .btn {
+                padding: 12px 24px;
+                background: #0066cc;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                transition: background 0.3s;
+            }
 
-        .btn:hover {
-            background: #0066CC;
-            color: white;
-        }
+            .btn:hover {
+                background: #004c99;
+            }
 
-        .loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #0066CC;
-            font-size: 18px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>🕸️ GraphRAG Explorer</h2>
+            .btn-secondary {
+                background: #7cb342;
+            }
 
-            <div class="info-section">
-                <h3>Over deze Kennisgraaf</h3>
-                <p>Deze graaf toont automatisch ontdekte relaties tussen entiteiten in het IOU-systeem.</p>
-                <p><strong>Klik op een node</strong> voor details.</p>
-            </div>
+            .btn-secondary:hover {
+                background: #689f38;
+            }
 
-            <div class="legend">
-                <h3 style="margin-bottom: 10px; font-size: 14px;">Legenda</h3>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #0066CC;"></div>
-                    <span>🏛️ Organisatie</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #7CB342;"></div>
-                    <span>👤 Persoon</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #FF9800;"></div>
-                    <span>📍 Locatie</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #9C27B0;"></div>
-                    <span>💡 Concept</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #F44336;"></div>
-                    <span>⚖️ Wetgeving</span>
-                </div>
-            </div>
+            .loading {
+                text-align: center;
+                padding: 40px;
+                font-size: 18px;
+                color: #666;
+            }
 
-            <div class="info-section" style="margin-top: 30px;">
-                <h3>Relatie Types</h3>
-                <p><strong>WORKS_FOR</strong>: Werkrelatie</p>
-                <p><strong>LOCATED_IN</strong>: Geografisch</p>
-                <p><strong>MANAGES</strong>: Beheert</p>
-                <p><strong>COLLABORATES</strong>: Samenwerking</p>
-                <p><strong>SUBJECT_TO</strong>: Onderworpen aan</p>
-            </div>
+            .error {
+                background: #f44336;
+                color: white;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🕸️ GraphRAG Explorer</h1>
+            <p>
+                Kennisgraaf Visualisatie - Automatische Context-Relatie
+                Ontdekking
+            </p>
         </div>
 
-        <div class="main-content">
-            <div class="header">
-                <h1>GraphRAG Kennisgraaf</h1>
+        <div class="container">
+            <div class="info-box">
+                <h2>📊 Netwerk Statistieken</h2>
                 <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-value" id="node-count">0</div>
+                    <div class="stat-card">
+                        <div class="stat-value">16</div>
                         <div class="stat-label">Entiteiten</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="edge-count">0</div>
+                    <div class="stat-card">
+                        <div class="stat-value">27</div>
                         <div class="stat-label">Relaties</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-card">
                         <div class="stat-value">3</div>
                         <div class="stat-label">Communities</div>
                     </div>
+                    <div class="stat-card">
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Entity Types</div>
+                    </div>
                 </div>
             </div>
 
-            <div id="graph"></div>
+            <div id="loading" class="loading">
+                <p>⏳ Laden van kennisgraaf...</p>
+            </div>
+
+            <div id="error-message" style="display: none" class="error"></div>
+
+            <div id="mynetwork"></div>
 
             <div class="controls">
                 <button class="btn" onclick="fitNetwork()">🔍 Zoom Fit</button>
-                <button class="btn" onclick="togglePhysics()">⚡ Toggle Physics</button>
-                <button class="btn" onclick="window.location.href='context_dashboard.html'">🏠 Terug</button>
+                <button class="btn" onclick="togglePhysics()">
+                    ⚡ Toggle Physics
+                </button>
+                <button
+                    class="btn btn-secondary"
+                    onclick="window.location.href='context_dashboard.html'"
+                >
+                    🏠 Dashboard
+                </button>
+            </div>
+
+            <div class="legend">
+                <h3>🎨 Legenda - Entity Types</h3>
+                <div class="legend-grid">
+                    <div class="legend-item">
+                        <div
+                            class="legend-color"
+                            style="background: #0066cc"
+                        ></div>
+                        <span
+                            ><strong>Organisaties</strong> - Provincie,
+                            Gemeentes, Ministeries</span
+                        >
+                    </div>
+                    <div class="legend-item">
+                        <div
+                            class="legend-color"
+                            style="background: #9c27b0"
+                        ></div>
+                        <span
+                            ><strong>Concepten</strong> - Circulaire Economie,
+                            Duurzaamheid</span
+                        >
+                    </div>
+                    <div class="legend-item">
+                        <div
+                            class="legend-color"
+                            style="background: #ff9800"
+                        ></div>
+                        <span
+                            ><strong>Locaties</strong> - Flevoland, Almere,
+                            Lelystad</span
+                        >
+                    </div>
+                    <div class="legend-item">
+                        <div
+                            class="legend-color"
+                            style="background: #f44336"
+                        ></div>
+                        <span
+                            ><strong>Wetgeving</strong> - Woo, Omgevingswet,
+                            Klimaatwet</span
+                        >
+                    </div>
+                    <div class="legend-item">
+                        <div
+                            class="legend-color"
+                            style="background: #7cb342"
+                        ></div>
+                        <span
+                            ><strong>Personen</strong> - Projectleiders,
+                            Beleidsmedewerkers</span
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px">
+                <h2>ℹ️ Over GraphRAG</h2>
+                <p>
+                    <strong>GraphRAG</strong> (Graph Retrieval-Augmented
+                    Generation) combineert kennisgrafen met AI om automatisch
+                    context-relaties te ontdekken.
+                </p>
+                <p style="margin-top: 10px">Deze graaf toont:</p>
+                <ul style="margin: 10px 0 0 20px; line-height: 1.8">
+                    <li>
+                        <strong>Entiteiten</strong>: Organisaties, personen,
+                        locaties, concepten en wetten geëxtraheerd uit
+                        documenten
+                    </li>
+                    <li>
+                        <strong>Relaties</strong>: WORKS_FOR, MANAGES,
+                        LOCATED_IN, COLLABORATES_WITH, SUBJECT_TO, etc.
+                    </li>
+                    <li>
+                        <strong>Communities</strong>: Automatische clustering
+                        van gerelateerde contexten (Duurzaamheid, Vergunningen,
+                        Mobiliteit)
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
 
-    <script>
-        console.log('GraphRAG Explorer loading...');
+        <!-- Vis.js Network Library -->
+        <script
+            type="text/javascript"
+            src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"
+        ></script>
 
-        // Graph data
-        const nodes = [
-            { id: 1, label: 'Provincie\nFlevoland', type: 'org', color: '#0066CC' },
-            { id: 2, label: 'Gemeente\nAlmere', type: 'org', color: '#0066CC' },
-            { id: 3, label: 'Gemeente\nLelystad', type: 'org', color: '#0066CC' },
-            { id: 4, label: 'Waterschap\nZuiderzeeland', type: 'org', color: '#0066CC' },
-            { id: 5, label: 'Ministerie\nI&W', type: 'org', color: '#0066CC' },
+        <script>
+            console.log("GraphRAG Explorer starting...");
 
-            { id: 10, label: 'Circulaire\nEconomie', type: 'concept', color: '#9C27B0' },
-            { id: 11, label: 'Groene\nEnergie', type: 'concept', color: '#9C27B0' },
-            { id: 12, label: 'Duurzaamheid', type: 'concept', color: '#9C27B0' },
-            { id: 13, label: 'Smart\nMobility', type: 'concept', color: '#9C27B0' },
+            let network = null;
+            let physicsEnabled = true;
 
-            { id: 20, label: 'Flevoland', type: 'location', color: '#FF9800' },
-            { id: 21, label: 'Flevopolder\nZuid', type: 'location', color: '#FF9800' },
-
-            { id: 30, label: 'Omgevingswet', type: 'law', color: '#F44336' },
-            { id: 31, label: 'Woo', type: 'law', color: '#F44336' },
-            { id: 32, label: 'Klimaatwet', type: 'law', color: '#F44336' },
-
-            { id: 40, label: 'Maria\nJansen', type: 'person', color: '#7CB342' },
-            { id: 41, label: 'Peter\nvan den Berg', type: 'person', color: '#7CB342' }
-        ];
-
-        const edges = [
-            { from: 1, to: 20, label: 'LOCATED_IN' },
-            { from: 2, to: 20, label: 'LOCATED_IN' },
-            { from: 3, to: 20, label: 'LOCATED_IN' },
-            { from: 4, to: 20, label: 'LOCATED_IN' },
-
-            { from: 1, to: 10, label: 'MANAGES' },
-            { from: 1, to: 11, label: 'PROMOTES' },
-            { from: 1, to: 12, label: 'PRIORITIZES' },
-            { from: 2, to: 10, label: 'IMPLEMENTS' },
-            { from: 2, to: 13, label: 'DEVELOPS' },
-
-            { from: 10, to: 12, label: 'PART_OF' },
-            { from: 11, to: 12, label: 'PART_OF' },
-            { from: 10, to: 11, label: 'RELATED_TO' },
-
-            { from: 1, to: 30, label: 'SUBJECT_TO' },
-            { from: 1, to: 31, label: 'COMPLIES_WITH' },
-            { from: 10, to: 32, label: 'SUPPORTS' },
-            { from: 11, to: 32, label: 'SUPPORTS' },
-
-            { from: 21, to: 20, label: 'PART_OF' },
-            { from: 11, to: 21, label: 'LOCATED_IN' },
-
-            { from: 40, to: 1, label: 'WORKS_FOR' },
-            { from: 40, to: 10, label: 'MANAGES' },
-            { from: 41, to: 1, label: 'WORKS_FOR' },
-            { from: 41, to: 13, label: 'LEADS' },
-
-            { from: 1, to: 2, label: 'COLLABORATES' },
-            { from: 1, to: 5, label: 'PARTNERS_WITH' },
-            { from: 2, to: 5, label: 'COORDINATES' }
-        ];
-
-        let network;
-        let physicsOn = true;
-
-        function initNetwork() {
-            console.log('Initializing network...');
-
-            const container = document.getElementById('graph');
-
-            // Update stats
-            document.getElementById('node-count').textContent = nodes.length;
-            document.getElementById('edge-count').textContent = edges.length;
-
-            // Create vis.js datasets
-            const visNodes = new vis.DataSet(
-                nodes.map(node => ({
-                    id: node.id,
-                    label: node.label,
-                    color: {
-                        background: node.color,
-                        border: node.color,
-                        highlight: {
-                            background: node.color,
-                            border: '#333'
-                        }
-                    },
-                    font: {
-                        color: 'white',
-                        size: 14,
-                        face: 'Segoe UI'
-                    },
+            // Graph data
+            const nodesData = [
+                {
+                    id: 1,
+                    label: "Provincie\nFlevoland",
+                    color: "#0066CC",
+                    size: 30,
+                    title: "Organisatie: Provincie Flevoland",
+                },
+                {
+                    id: 2,
+                    label: "Gemeente\nAlmere",
+                    color: "#0066CC",
                     size: 25,
-                    borderWidth: 2,
-                    shadow: true
-                }))
-            );
+                    title: "Organisatie: Gemeente Almere",
+                },
+                {
+                    id: 3,
+                    label: "Gemeente\nLelystad",
+                    color: "#0066CC",
+                    size: 20,
+                    title: "Organisatie: Gemeente Lelystad",
+                },
+                {
+                    id: 4,
+                    label: "Waterschap\nZuiderzeeland",
+                    color: "#0066CC",
+                    size: 18,
+                    title: "Organisatie: Waterschap Zuiderzeeland",
+                },
+                {
+                    id: 5,
+                    label: "Min. I&W",
+                    color: "#0066CC",
+                    size: 22,
+                    title: "Organisatie: Ministerie van Infrastructuur en Waterstaat",
+                },
 
-            const visEdges = new vis.DataSet(
-                edges.map((edge, idx) => ({
-                    id: idx,
-                    from: edge.from,
-                    to: edge.to,
-                    label: edge.label,
-                    arrows: 'to',
-                    color: {
-                        color: '#999',
-                        highlight: '#0066CC'
-                    },
-                    font: {
-                        size: 11,
-                        align: 'top'
-                    },
-                    smooth: {
-                        type: 'cubicBezier',
-                        roundness: 0.4
+                {
+                    id: 10,
+                    label: "Circulaire\nEconomie",
+                    color: "#9C27B0",
+                    size: 28,
+                    title: "Concept: Circulaire Economie",
+                },
+                {
+                    id: 11,
+                    label: "Groene\nEnergie",
+                    color: "#9C27B0",
+                    size: 26,
+                    title: "Concept: Groene Energie",
+                },
+                {
+                    id: 12,
+                    label: "Duurzaamheid",
+                    color: "#9C27B0",
+                    size: 30,
+                    title: "Concept: Duurzaamheid",
+                },
+                {
+                    id: 13,
+                    label: "Smart\nMobility",
+                    color: "#9C27B0",
+                    size: 20,
+                    title: "Concept: Smart Mobility",
+                },
+
+                {
+                    id: 20,
+                    label: "Flevoland",
+                    color: "#FF9800",
+                    size: 32,
+                    title: "Locatie: Provincie Flevoland",
+                },
+                {
+                    id: 21,
+                    label: "Flevopolder\nZuid",
+                    color: "#FF9800",
+                    size: 18,
+                    title: "Locatie: Flevopolder Zuid",
+                },
+
+                {
+                    id: 30,
+                    label: "Omgevingswet",
+                    color: "#F44336",
+                    size: 24,
+                    title: "Wet: Omgevingswet",
+                },
+                {
+                    id: 31,
+                    label: "Woo",
+                    color: "#F44336",
+                    size: 26,
+                    title: "Wet: Wet open overheid",
+                },
+                {
+                    id: 32,
+                    label: "Klimaatwet",
+                    color: "#F44336",
+                    size: 22,
+                    title: "Wet: Klimaatwet",
+                },
+
+                {
+                    id: 40,
+                    label: "Maria Jansen",
+                    color: "#7CB342",
+                    size: 20,
+                    title: "Persoon: Maria Jansen (Beleidsmedewerker)",
+                },
+                {
+                    id: 41,
+                    label: "Peter v/d Berg",
+                    color: "#7CB342",
+                    size: 18,
+                    title: "Persoon: Peter van den Berg (Projectleider)",
+                },
+            ];
+
+            const edgesData = [
+                {
+                    from: 1,
+                    to: 20,
+                    label: "LOCATED_IN",
+                    title: "Provincie Flevoland is gelegen in Flevoland",
+                },
+                {
+                    from: 2,
+                    to: 20,
+                    label: "LOCATED_IN",
+                    title: "Gemeente Almere is gelegen in Flevoland",
+                },
+                {
+                    from: 3,
+                    to: 20,
+                    label: "LOCATED_IN",
+                    title: "Gemeente Lelystad is gelegen in Flevoland",
+                },
+                {
+                    from: 4,
+                    to: 20,
+                    label: "LOCATED_IN",
+                    title: "Waterschap is gelegen in Flevoland",
+                },
+
+                {
+                    from: 1,
+                    to: 10,
+                    label: "MANAGES",
+                    title: "Provincie beheert Circulaire Economie projecten",
+                },
+                {
+                    from: 1,
+                    to: 11,
+                    label: "PROMOTES",
+                    title: "Provincie bevordert Groene Energie",
+                },
+                {
+                    from: 1,
+                    to: 12,
+                    label: "PRIORITIZES",
+                    title: "Provincie prioriteert Duurzaamheid",
+                },
+                {
+                    from: 2,
+                    to: 10,
+                    label: "IMPLEMENTS",
+                    title: "Almere implementeert Circulaire Economie",
+                },
+                {
+                    from: 2,
+                    to: 13,
+                    label: "DEVELOPS",
+                    title: "Almere ontwikkelt Smart Mobility",
+                },
+
+                {
+                    from: 10,
+                    to: 12,
+                    label: "PART_OF",
+                    title: "Circulaire Economie is onderdeel van Duurzaamheid",
+                },
+                {
+                    from: 11,
+                    to: 12,
+                    label: "PART_OF",
+                    title: "Groene Energie is onderdeel van Duurzaamheid",
+                },
+                {
+                    from: 10,
+                    to: 11,
+                    label: "RELATED_TO",
+                    title: "Circulaire Economie en Groene Energie zijn gerelateerd",
+                },
+
+                {
+                    from: 1,
+                    to: 30,
+                    label: "SUBJECT_TO",
+                    title: "Provincie is onderworpen aan Omgevingswet",
+                },
+                {
+                    from: 1,
+                    to: 31,
+                    label: "COMPLIES_WITH",
+                    title: "Provincie voldoet aan Woo",
+                },
+                {
+                    from: 10,
+                    to: 32,
+                    label: "SUPPORTS",
+                    title: "Circulaire Economie ondersteunt Klimaatwet",
+                },
+                {
+                    from: 11,
+                    to: 32,
+                    label: "SUPPORTS",
+                    title: "Groene Energie ondersteunt Klimaatwet",
+                },
+
+                {
+                    from: 21,
+                    to: 20,
+                    label: "PART_OF",
+                    title: "Flevopolder Zuid is onderdeel van Flevoland",
+                },
+                {
+                    from: 11,
+                    to: 21,
+                    label: "LOCATED_IN",
+                    title: "Groene Energie projecten in Flevopolder Zuid",
+                },
+
+                {
+                    from: 40,
+                    to: 1,
+                    label: "WORKS_FOR",
+                    title: "Maria Jansen werkt voor Provincie Flevoland",
+                },
+                {
+                    from: 40,
+                    to: 10,
+                    label: "MANAGES",
+                    title: "Maria Jansen beheert Circulaire Economie",
+                },
+                {
+                    from: 41,
+                    to: 1,
+                    label: "WORKS_FOR",
+                    title: "Peter van den Berg werkt voor Provincie",
+                },
+                {
+                    from: 41,
+                    to: 13,
+                    label: "LEADS",
+                    title: "Peter leidt Smart Mobility project",
+                },
+
+                {
+                    from: 1,
+                    to: 2,
+                    label: "COLLABORATES",
+                    title: "Provincie en Almere werken samen",
+                },
+                {
+                    from: 1,
+                    to: 5,
+                    label: "PARTNERS_WITH",
+                    title: "Provincie partnert met Ministerie I&W",
+                },
+                {
+                    from: 2,
+                    to: 5,
+                    label: "COORDINATES",
+                    title: "Almere coördineert met Ministerie",
+                },
+            ];
+
+            function initNetwork() {
+                try {
+                    console.log(
+                        "Initializing network with",
+                        nodesData.length,
+                        "nodes and",
+                        edgesData.length,
+                        "edges",
+                    );
+
+                    const container = document.getElementById("mynetwork");
+
+                    if (!container) {
+                        throw new Error("Container element not found!");
                     }
-                }))
-            );
 
-            const data = {
-                nodes: visNodes,
-                edges: visEdges
-            };
+                    // Create DataSets
+                    const nodes = new vis.DataSet(
+                        nodesData.map((node) => ({
+                            id: node.id,
+                            label: node.label,
+                            color: {
+                                background: node.color,
+                                border: "#333",
+                                highlight: {
+                                    background: node.color,
+                                    border: "#000",
+                                },
+                            },
+                            font: {
+                                color: "white",
+                                size: 14,
+                                face: "Arial",
+                                bold: true,
+                            },
+                            size: node.size,
+                            title: node.title,
+                            borderWidth: 2,
+                            shadow: true,
+                        })),
+                    );
 
-            const options = {
-                physics: {
-                    enabled: true,
-                    barnesHut: {
-                        gravitationalConstant: -2000,
-                        springConstant: 0.001,
-                        springLength: 200
-                    },
-                    stabilization: {
-                        iterations: 150
-                    }
-                },
-                interaction: {
-                    hover: true,
-                    tooltipDelay: 100
-                },
-                nodes: {
-                    shape: 'dot'
-                },
-                edges: {
-                    width: 2
+                    const edges = new vis.DataSet(
+                        edgesData.map((edge) => ({
+                            from: edge.from,
+                            to: edge.to,
+                            label: edge.label,
+                            title: edge.title,
+                            arrows: "to",
+                            color: {
+                                color: "#666",
+                                highlight: "#0066CC",
+                            },
+                            font: {
+                                size: 11,
+                                align: "top",
+                            },
+                            width: 2,
+                            smooth: {
+                                type: "cubicBezier",
+                                roundness: 0.3,
+                            },
+                        })),
+                    );
+
+                    const data = { nodes: nodes, edges: edges };
+
+                    const options = {
+                        physics: {
+                            enabled: true,
+                            barnesHut: {
+                                gravitationalConstant: -3000,
+                                centralGravity: 0.3,
+                                springLength: 150,
+                                springConstant: 0.04,
+                                damping: 0.09,
+                                avoidOverlap: 0.5,
+                            },
+                            stabilization: {
+                                iterations: 200,
+                                updateInterval: 25,
+                            },
+                        },
+                        interaction: {
+                            hover: true,
+                            tooltipDelay: 200,
+                            navigationButtons: true,
+                            keyboard: true,
+                        },
+                    };
+
+                    network = new vis.Network(container, data, options);
+
+                    // Event handlers
+                    network.on("click", function (params) {
+                        if (params.nodes.length > 0) {
+                            const nodeId = params.nodes[0];
+                            const node = nodesData.find((n) => n.id === nodeId);
+                            if (node) {
+                                alert(
+                                    "Entiteit: " +
+                                        node.label.replace(/\n/g, " ") +
+                                        "\n" +
+                                        node.title,
+                                );
+                            }
+                        }
+                    });
+
+                    network.on("stabilizationIterationsDone", function () {
+                        console.log("Network stabilized");
+                        network.setOptions({ physics: false });
+                        physicsEnabled = false;
+                        document.getElementById("loading").style.display =
+                            "none";
+                    });
+
+                    network.on("stabilizationProgress", function (params) {
+                        const progress = Math.round(
+                            (params.iterations / params.total) * 100,
+                        );
+                        document.getElementById("loading").innerHTML =
+                            "<p>⏳ Laden van kennisgraaf... " +
+                            progress +
+                            "%</p>";
+                    });
+
+                    console.log("Network created successfully!");
+                } catch (error) {
+                    console.error("Error initializing network:", error);
+                    document.getElementById("error-message").textContent =
+                        "Fout bij laden van graaf: " + error.message;
+                    document.getElementById("error-message").style.display =
+                        "block";
+                    document.getElementById("loading").style.display = "none";
                 }
-            };
+            }
 
-            network = new vis.Network(container, data, options);
-
-            network.on('click', function(params) {
-                if (params.nodes.length > 0) {
-                    const nodeId = params.nodes[0];
-                    const node = nodes.find(n => n.id === nodeId);
-                    if (node) {
-                        alert(`Entiteit: ${node.label.replace('\n', ' ')}\nType: ${node.type}`);
-                    }
+            function fitNetwork() {
+                if (network) {
+                    network.fit({
+                        animation: {
+                            duration: 1000,
+                            easingFunction: "easeInOutQuad",
+                        },
+                    });
                 }
-            });
-
-            network.on('stabilizationIterationsDone', function() {
-                console.log('Network stabilized');
-                network.setOptions({ physics: false });
-                physicsOn = false;
-            });
-
-            console.log('Network initialized successfully!');
-        }
-
-        function fitNetwork() {
-            if (network) {
-                network.fit({ animation: true });
             }
-        }
 
-        function togglePhysics() {
-            if (network) {
-                physicsOn = !physicsOn;
-                network.setOptions({ physics: physicsOn });
+            function togglePhysics() {
+                if (network) {
+                    physicsEnabled = !physicsEnabled;
+                    network.setOptions({ physics: physicsEnabled });
+                    alert(
+                        physicsEnabled
+                            ? "Physics ingeschakeld"
+                            : "Physics uitgeschakeld",
+                    );
+                }
             }
-        }
 
-        // Initialize when page loads
-        window.addEventListener('load', function() {
-            console.log('Page loaded, initializing network...');
-            setTimeout(initNetwork, 100);
-        });
-    </script>
-</body>
+            // Initialize when DOM is ready
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", function () {
+                    console.log("DOM loaded, initializing...");
+                    setTimeout(initNetwork, 100);
+                });
+            } else {
+                console.log("DOM already loaded, initializing...");
+                setTimeout(initNetwork, 100);
+            }
+        </script>
+    </body>
 </html>
