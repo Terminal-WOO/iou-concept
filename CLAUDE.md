@@ -382,7 +382,7 @@ Code comments and documentation should be in Dutch for authenticity, but English
 
 ## Related Documentation
 
-- Original concept PDF: `docs/IOU concept vanuit 3 perspectieven.pdf`
-- Woo implementation guide: `docs/Woo-implementatie suggesties.pdf`
+- Original concept documentation: `docs/iou-concept.txt`
+- Woo implementation guide: `docs/woo-implementatie.txt`
 - Architecture principles referenced: AL-0, AL-2, AL-5, AL-6, IL-3, OL-2, GL-1
 - Real Woo example: https://www.rijksoverheid.nl/documenten/publicaties/2025/10/07/openbaargemaakt-document-bij-besluit-woo-verzoek-over-basiskaart-agrarische-bedrijfssituatie-2021

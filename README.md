@@ -45,9 +45,9 @@ Informatiedomeinen worden samenwerkingsdomeinen:
 
 ```
 IOU-concept/
-├── docs/                           # Originele PDF documentatie
-│   ├── IOU concept vanuit 3 perspectieven.pdf
-│   └── Woo-implementatie suggesties.pdf
+├── docs/                           # Originele documentatie
+│   ├── iou-concept.txt
+│   └── woo-implementatie.txt
 │
 ├── src/
 │   ├── models/
@@ -576,8 +576,8 @@ Dit voorbeeld toont hoe het IOU-concept een complexe Woo-procedure ondersteunt v
 ## Referenties
 
 ### Documentatie
-- `IOU concept vanuit 3 perspectieven.pdf`: Kernprincipes
-- `Woo-implementatie suggesties.pdf`: AI/ML implementatie
+- `docs/iou-concept.txt`: Kernprincipes en IOU-concept beschrijving
+- `docs/woo-implementatie.txt`: AI/ML implementatie voor Woo-compliance
 - `TESTDATA.md`: Test scenario's en SQL voorbeelden
 - Real-world Woo voorbeeld: [Rijksoverheid.nl - Basiskaart Agrarische Bedrijfssituatie](https://www.rijksoverheid.nl/documenten/publicaties/2025/10/07/openbaargemaakt-document-bij-besluit-woo-verzoek-over-basiskaart-agrarische-bedrijfssituatie-2021)
 
