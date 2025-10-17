@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GraphRAG Explorer - Kennisgraaf Visualisatie</title>
     <link rel="stylesheet" href="flevoland-theme.css">
-    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -13,19 +13,64 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .graphrag-container {
-            display: grid;
-            grid-template-columns: 300px 1fr 350px;
+        .container {
+            display: flex;
             height: 100vh;
-            gap: 0;
         }
 
-        /* Sidebar */
         .sidebar {
+            width: 280px;
             background: linear-gradient(135deg, #0066CC 0%, #004C99 100%);
             color: white;
             padding: 20px;
             overflow-y: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            padding: 15px 20px;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #0066CC;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0066CC;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #666;
+        }
+
+        #graph {
+            flex: 1;
+            background: #fafafa;
         }
 
         .sidebar h2 {
@@ -35,135 +80,33 @@
             padding-bottom: 10px;
         }
 
-        .filter-section {
+        .info-section {
             margin: 20px 0;
-        }
-
-        .filter-section label {
-            display: block;
-            margin: 10px 0 5px 0;
-            font-size: 13px;
-            opacity: 0.9;
-        }
-
-        .filter-section select,
-        .filter-section input {
-            width: 100%;
-            padding: 8px;
-            border-radius: 4px;
-            border: none;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            font-size: 13px;
-        }
-
-        .filter-section select option {
-            background: #004C99;
-            color: white;
-        }
-
-        .filter-section input::placeholder {
-            color: rgba(255,255,255,0.6);
-        }
-
-        .community-list {
-            margin-top: 15px;
-        }
-
-        .community-item {
             background: rgba(255,255,255,0.1);
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-left: 3px solid transparent;
+            padding: 15px;
+            border-radius: 8px;
         }
 
-        .community-item:hover {
-            background: rgba(255,255,255,0.2);
-            border-left-color: #7CB342;
+        .info-section h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
         }
 
-        .community-item.active {
-            background: rgba(124, 179, 66, 0.3);
-            border-left-color: #7CB342;
-        }
-
-        .community-name {
-            font-weight: 600;
+        .info-section p {
+            margin: 5px 0;
             font-size: 13px;
-            margin-bottom: 4px;
-        }
-
-        .community-stats {
-            font-size: 11px;
-            opacity: 0.8;
-        }
-
-        /* Main Graph */
-        .graph-area {
-            position: relative;
-            background: #f5f5f5;
-        }
-
-        #knowledge-graph {
-            width: 100%;
-            height: 100%;
-            background: #fafafa;
-        }
-
-        .graph-controls {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 100;
-            display: flex;
-            gap: 10px;
-        }
-
-        .control-btn {
-            background: white;
-            border: 1px solid #ddd;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: all 0.2s;
-        }
-
-        .control-btn:hover {
-            background: #0066CC;
-            color: white;
-            border-color: #0066CC;
+            line-height: 1.4;
         }
 
         .legend {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            z-index: 100;
-        }
-
-        .legend-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 13px;
+            margin-top: 20px;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
             margin: 8px 0;
-            font-size: 12px;
+            font-size: 13px;
         }
 
         .legend-color {
@@ -173,155 +116,29 @@
             margin-right: 10px;
         }
 
-        /* Details Panel */
-        .details-panel {
+        .controls {
+            padding: 15px 20px;
             background: white;
-            border-left: 1px solid #ddd;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .details-panel h2 {
-            margin-top: 0;
-            color: #0066CC;
-            font-size: 20px;
-            border-bottom: 2px solid #7CB342;
-            padding-bottom: 10px;
-        }
-
-        .no-selection {
-            text-align: center;
-            color: #999;
-            padding: 40px 20px;
-        }
-
-        .no-selection svg {
-            width: 80px;
-            height: 80px;
-            opacity: 0.3;
-            margin-bottom: 20px;
-        }
-
-        .entity-card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-        }
-
-        .entity-type-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .badge-organization { background: #0066CC; color: white; }
-        .badge-person { background: #7CB342; color: white; }
-        .badge-location { background: #FF9800; color: white; }
-        .badge-concept { background: #9C27B0; color: white; }
-        .badge-law { background: #F44336; color: white; }
-        .badge-event { background: #00BCD4; color: white; }
-
-        .entity-name {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 10px 0;
-            color: #333;
-        }
-
-        .entity-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            border-top: 1px solid #eee;
+            display: flex;
             gap: 10px;
-            margin: 15px 0;
         }
 
-        .stat-box {
+        .btn {
+            padding: 8px 15px;
+            border: 1px solid #0066CC;
             background: white;
-            padding: 10px;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
             color: #0066CC;
-        }
-
-        .stat-label {
-            font-size: 11px;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .relationships-list {
-            margin-top: 20px;
-        }
-
-        .relationship-item {
-            padding: 12px;
-            background: #f8f9fa;
-            margin: 8px 0;
             border-radius: 4px;
-            border-left: 3px solid #7CB342;
+            cursor: pointer;
+            font-size: 13px;
         }
 
-        .relationship-type {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: #666;
-            font-weight: 600;
-        }
-
-        .relationship-target {
-            font-size: 14px;
-            margin-top: 5px;
-            color: #333;
-        }
-
-        .relationship-strength {
-            display: inline-block;
-            background: #7CB342;
+        .btn:hover {
+            background: #0066CC;
             color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 11px;
-            margin-top: 5px;
         }
 
-        .section-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #0066CC;
-            margin: 20px 0 10px 0;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-
-        .occurrences-list {
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .occurrence-item {
-            padding: 8px;
-            background: #f0f7ff;
-            margin: 6px 0;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-
-        .occurrence-context {
-            color: #666;
-            font-style: italic;
-            margin-top: 4px;
-        }
-
-        /* Loading spinner */
         .loading {
             position: absolute;
             top: 50%;
@@ -329,572 +146,270 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: #0066CC;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #0066CC;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Stats bar */
-        .stats-bar {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            display: flex;
-            gap: 30px;
-            z-index: 100;
-        }
-
-        .stats-item {
-            text-align: center;
-        }
-
-        .stats-number {
-            font-size: 24px;
-            font-weight: 700;
-            color: #0066CC;
-        }
-
-        .stats-text {
-            font-size: 11px;
-            color: #666;
-            margin-top: 2px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-    <div class="graphrag-container">
-        <!-- Sidebar -->
+    <div class="container">
         <div class="sidebar">
             <h2>🕸️ GraphRAG Explorer</h2>
 
-            <div class="filter-section">
-                <label>Domein Context</label>
-                <select id="domain-select">
-                    <option value="all">Alle Domeinen</option>
-                    <option value="project_circulair">Project: Circulaire Economie</option>
-                    <option value="project_windpark">Project: Windpark Flevopolder</option>
-                    <option value="zaak_subsidie">Zaak: Subsidie Groene Energie</option>
-                    <option value="beleid_duurzaamheid">Beleid: Duurzaamheid 2030</option>
-                </select>
+            <div class="info-section">
+                <h3>Over deze Kennisgraaf</h3>
+                <p>Deze graaf toont automatisch ontdekte relaties tussen entiteiten in het IOU-systeem.</p>
+                <p><strong>Klik op een node</strong> voor details.</p>
             </div>
-
-            <div class="filter-section">
-                <label>Entiteit Type</label>
-                <select id="entity-type-filter">
-                    <option value="all">Alle Types</option>
-                    <option value="ORGANIZATION">🏛️ Organisaties</option>
-                    <option value="PERSON">👤 Personen</option>
-                    <option value="LOCATION">📍 Locaties</option>
-                    <option value="CONCEPT">💡 Concepten</option>
-                    <option value="LAW">⚖️ Wetgeving</option>
-                    <option value="EVENT">📅 Gebeurtenissen</option>
-                </select>
-            </div>
-
-            <div class="filter-section">
-                <label>Minimale Sterkte</label>
-                <input type="range" id="strength-filter" min="0" max="100" value="50">
-                <span id="strength-value">0.50</span>
-            </div>
-
-            <div class="section-title">Communities (Thema's)</div>
-            <div class="community-list" id="community-list">
-                <div class="community-item active" data-community="all">
-                    <div class="community-name">🌐 Alle Communities</div>
-                    <div class="community-stats">Volledig netwerk</div>
-                </div>
-                <div class="community-item" data-community="duurzaamheid">
-                    <div class="community-name">🌱 Duurzaamheid & Circulair</div>
-                    <div class="community-stats">12 domeinen • coherence: 0.87</div>
-                </div>
-                <div class="community-item" data-community="vergunningen">
-                    <div class="community-name">📋 Vergunningen & RO</div>
-                    <div class="community-stats">8 domeinen • coherence: 0.82</div>
-                </div>
-                <div class="community-item" data-community="mobiliteit">
-                    <div class="community-name">🚗 Mobiliteit & Infrastructuur</div>
-                    <div class="community-stats">6 domeinen • coherence: 0.75</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Graph Area -->
-        <div class="graph-area">
-            <div class="graph-controls">
-                <button class="control-btn" onclick="fitGraph()">
-                    🔍 Zoom Fit
-                </button>
-                <button class="control-btn" onclick="togglePhysics()">
-                    ⚡ Physics
-                </button>
-                <button class="control-btn" onclick="exportGraph()">
-                    💾 Export
-                </button>
-            </div>
-
-            <div class="stats-bar">
-                <div class="stats-item">
-                    <div class="stats-number" id="stat-entities">42</div>
-                    <div class="stats-text">Entiteiten</div>
-                </div>
-                <div class="stats-item">
-                    <div class="stats-number" id="stat-relations">67</div>
-                    <div class="stats-text">Relaties</div>
-                </div>
-                <div class="stats-item">
-                    <div class="stats-number" id="stat-communities">3</div>
-                    <div class="stats-text">Communities</div>
-                </div>
-            </div>
-
-            <div id="knowledge-graph"></div>
 
             <div class="legend">
-                <div class="legend-title">Legenda</div>
+                <h3 style="margin-bottom: 10px; font-size: 14px;">Legenda</h3>
                 <div class="legend-item">
                     <div class="legend-color" style="background: #0066CC;"></div>
-                    <span>Organisatie</span>
+                    <span>🏛️ Organisatie</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: #7CB342;"></div>
-                    <span>Persoon</span>
+                    <span>👤 Persoon</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: #FF9800;"></div>
-                    <span>Locatie</span>
+                    <span>📍 Locatie</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: #9C27B0;"></div>
-                    <span>Concept</span>
+                    <span>💡 Concept</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: #F44336;"></div>
-                    <span>Wetgeving</span>
+                    <span>⚖️ Wetgeving</span>
                 </div>
+            </div>
+
+            <div class="info-section" style="margin-top: 30px;">
+                <h3>Relatie Types</h3>
+                <p><strong>WORKS_FOR</strong>: Werkrelatie</p>
+                <p><strong>LOCATED_IN</strong>: Geografisch</p>
+                <p><strong>MANAGES</strong>: Beheert</p>
+                <p><strong>COLLABORATES</strong>: Samenwerking</p>
+                <p><strong>SUBJECT_TO</strong>: Onderworpen aan</p>
             </div>
         </div>
 
-        <!-- Details Panel -->
-        <div class="details-panel" id="details-panel">
-            <div class="no-selection">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
-                <p>Selecteer een entiteit of relatie in de graaf om details te zien</p>
+        <div class="main-content">
+            <div class="header">
+                <h1>GraphRAG Kennisgraaf</h1>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="node-count">0</div>
+                        <div class="stat-label">Entiteiten</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="edge-count">0</div>
+                        <div class="stat-label">Relaties</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Communities</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="graph"></div>
+
+            <div class="controls">
+                <button class="btn" onclick="fitNetwork()">🔍 Zoom Fit</button>
+                <button class="btn" onclick="togglePhysics()">⚡ Toggle Physics</button>
+                <button class="btn" onclick="window.location.href='context_dashboard.html'">🏠 Terug</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Demo data: GraphRAG kennisgraaf
-        const graphData = {
-            nodes: [
-                // Organisaties
-                { id: 1, label: 'Provincie\nFlevoland', type: 'ORGANIZATION', group: 'duurzaamheid', confidence: 1.0, sourceCount: 24 },
-                { id: 2, label: 'Gemeente\nAlmere', type: 'ORGANIZATION', group: 'duurzaamheid', confidence: 1.0, sourceCount: 18 },
-                { id: 3, label: 'Gemeente\nLelystad', type: 'ORGANIZATION', group: 'duurzaamheid', confidence: 0.95, sourceCount: 12 },
-                { id: 4, label: 'Waterschap\nZuiderzeeland', type: 'ORGANIZATION', group: 'duurzaamheid', confidence: 0.92, sourceCount: 8 },
-                { id: 5, label: 'Ministerie I&W', type: 'ORGANIZATION', group: 'mobiliteit', confidence: 0.88, sourceCount: 6 },
+        console.log('GraphRAG Explorer loading...');
 
-                // Concepten
-                { id: 10, label: 'Circulaire\nEconomie', type: 'CONCEPT', group: 'duurzaamheid', confidence: 0.95, sourceCount: 15 },
-                { id: 11, label: 'Groene\nEnergie', type: 'CONCEPT', group: 'duurzaamheid', confidence: 0.93, sourceCount: 13 },
-                { id: 12, label: 'Duurzaamheid', type: 'CONCEPT', group: 'duurzaamheid', confidence: 0.97, sourceCount: 20 },
-                { id: 13, label: 'Smart\nMobility', type: 'CONCEPT', group: 'mobiliteit', confidence: 0.85, sourceCount: 7 },
+        // Graph data
+        const nodes = [
+            { id: 1, label: 'Provincie\nFlevoland', type: 'org', color: '#0066CC' },
+            { id: 2, label: 'Gemeente\nAlmere', type: 'org', color: '#0066CC' },
+            { id: 3, label: 'Gemeente\nLelystad', type: 'org', color: '#0066CC' },
+            { id: 4, label: 'Waterschap\nZuiderzeeland', type: 'org', color: '#0066CC' },
+            { id: 5, label: 'Ministerie\nI&W', type: 'org', color: '#0066CC' },
 
-                // Locaties
-                { id: 20, label: 'Flevoland', type: 'LOCATION', group: 'duurzaamheid', confidence: 1.0, sourceCount: 30 },
-                { id: 21, label: 'Flevopolder\nZuid', type: 'LOCATION', group: 'duurzaamheid', confidence: 0.90, sourceCount: 5 },
+            { id: 10, label: 'Circulaire\nEconomie', type: 'concept', color: '#9C27B0' },
+            { id: 11, label: 'Groene\nEnergie', type: 'concept', color: '#9C27B0' },
+            { id: 12, label: 'Duurzaamheid', type: 'concept', color: '#9C27B0' },
+            { id: 13, label: 'Smart\nMobility', type: 'concept', color: '#9C27B0' },
 
-                // Wetten
-                { id: 30, label: 'Omgevingswet', type: 'LAW', group: 'vergunningen', confidence: 0.98, sourceCount: 16 },
-                { id: 31, label: 'Wet open\noverheid', type: 'LAW', group: 'vergunningen', confidence: 0.99, sourceCount: 22 },
-                { id: 32, label: 'Klimaatwet', type: 'LAW', group: 'duurzaamheid', confidence: 0.92, sourceCount: 11 },
+            { id: 20, label: 'Flevoland', type: 'location', color: '#FF9800' },
+            { id: 21, label: 'Flevopolder\nZuid', type: 'location', color: '#FF9800' },
 
-                // Personen
-                { id: 40, label: 'Maria\nJansen', type: 'PERSON', group: 'duurzaamheid', confidence: 0.88, sourceCount: 9 },
-                { id: 41, label: 'Peter\nvan den Berg', type: 'PERSON', group: 'mobiliteit', confidence: 0.86, sourceCount: 7 }
-            ],
-            edges: [
-                // Organisatie relaties
-                { from: 1, to: 20, label: 'LOCATED_IN', strength: 1.0, type: 'location' },
-                { from: 2, to: 20, label: 'LOCATED_IN', strength: 1.0, type: 'location' },
-                { from: 3, to: 20, label: 'LOCATED_IN', strength: 1.0, type: 'location' },
-                { from: 4, to: 20, label: 'LOCATED_IN', strength: 0.95, type: 'location' },
+            { id: 30, label: 'Omgevingswet', type: 'law', color: '#F44336' },
+            { id: 31, label: 'Woo', type: 'law', color: '#F44336' },
+            { id: 32, label: 'Klimaatwet', type: 'law', color: '#F44336' },
 
-                // Concept relaties
-                { from: 1, to: 10, label: 'MANAGES', strength: 0.92, type: 'manages' },
-                { from: 1, to: 11, label: 'PROMOTES', strength: 0.88, type: 'promotes' },
-                { from: 1, to: 12, label: 'PRIORITIZES', strength: 0.95, type: 'prioritizes' },
-                { from: 2, to: 10, label: 'IMPLEMENTS', strength: 0.85, type: 'implements' },
-                { from: 2, to: 13, label: 'DEVELOPS', strength: 0.78, type: 'develops' },
+            { id: 40, label: 'Maria\nJansen', type: 'person', color: '#7CB342' },
+            { id: 41, label: 'Peter\nvan den Berg', type: 'person', color: '#7CB342' }
+        ];
 
-                // Concept interconnections
-                { from: 10, to: 12, label: 'PART_OF', strength: 0.90, type: 'concept' },
-                { from: 11, to: 12, label: 'PART_OF', strength: 0.88, type: 'concept' },
-                { from: 10, to: 11, label: 'RELATED_TO', strength: 0.82, type: 'concept' },
+        const edges = [
+            { from: 1, to: 20, label: 'LOCATED_IN' },
+            { from: 2, to: 20, label: 'LOCATED_IN' },
+            { from: 3, to: 20, label: 'LOCATED_IN' },
+            { from: 4, to: 20, label: 'LOCATED_IN' },
 
-                // Wetgeving relaties
-                { from: 1, to: 30, label: 'SUBJECT_TO', strength: 0.95, type: 'legal' },
-                { from: 1, to: 31, label: 'COMPLIES_WITH', strength: 0.98, type: 'legal' },
-                { from: 10, to: 32, label: 'SUPPORTS', strength: 0.86, type: 'legal' },
-                { from: 11, to: 32, label: 'SUPPORTS', strength: 0.90, type: 'legal' },
+            { from: 1, to: 10, label: 'MANAGES' },
+            { from: 1, to: 11, label: 'PROMOTES' },
+            { from: 1, to: 12, label: 'PRIORITIZES' },
+            { from: 2, to: 10, label: 'IMPLEMENTS' },
+            { from: 2, to: 13, label: 'DEVELOPS' },
 
-                // Locatie relaties
-                { from: 21, to: 20, label: 'PART_OF', strength: 1.0, type: 'location' },
-                { from: 11, to: 21, label: 'LOCATED_IN', strength: 0.75, type: 'location' },
+            { from: 10, to: 12, label: 'PART_OF' },
+            { from: 11, to: 12, label: 'PART_OF' },
+            { from: 10, to: 11, label: 'RELATED_TO' },
 
-                // Persoon relaties
-                { from: 40, to: 1, label: 'WORKS_FOR', strength: 0.95, type: 'employment' },
-                { from: 40, to: 10, label: 'MANAGES', strength: 0.88, type: 'manages' },
-                { from: 41, to: 1, label: 'WORKS_FOR', strength: 0.93, type: 'employment' },
-                { from: 41, to: 13, label: 'LEADS', strength: 0.85, type: 'manages' },
+            { from: 1, to: 30, label: 'SUBJECT_TO' },
+            { from: 1, to: 31, label: 'COMPLIES_WITH' },
+            { from: 10, to: 32, label: 'SUPPORTS' },
+            { from: 11, to: 32, label: 'SUPPORTS' },
 
-                // Cross-domain collaborations
-                { from: 1, to: 2, label: 'COLLABORATES_WITH', strength: 0.87, type: 'collaboration' },
-                { from: 1, to: 5, label: 'PARTNERS_WITH', strength: 0.72, type: 'collaboration' },
-                { from: 2, to: 5, label: 'COORDINATES_WITH', strength: 0.68, type: 'collaboration' }
-            ]
-        };
+            { from: 21, to: 20, label: 'PART_OF' },
+            { from: 11, to: 21, label: 'LOCATED_IN' },
 
-        // Entity details (for details panel)
-        const entityDetails = {
-            1: {
-                name: 'Provincie Flevoland',
-                type: 'ORGANIZATION',
-                description: 'Provinciaal bestuur van Flevoland, verantwoordelijk voor ruimtelijke ordening, mobiliteit, economie en duurzaamheid.',
-                relationships: 15,
-                documents: 24,
-                domains: 8,
-                occurrences: [
-                    { doc: 'Project Circulaire Economie 2025', context: '...Provincie Flevoland initieert een grootschalig project...' },
-                    { doc: 'Subsidieregeling Groene Energie', context: '...namens Provincie Flevoland worden subsidies verstrekt...' },
-                    { doc: 'Beleidsnota Duurzaamheid 2030', context: '...Provincie Flevoland stelt zich ten doel om...' }
-                ],
-                relatedEntities: [
-                    { name: 'Gemeente Almere', type: 'COLLABORATES_WITH', strength: 0.87 },
-                    { name: 'Circulaire Economie', type: 'MANAGES', strength: 0.92 },
-                    { name: 'Groene Energie', type: 'PROMOTES', strength: 0.88 },
-                    { name: 'Omgevingswet', type: 'SUBJECT_TO', strength: 0.95 }
-                ]
-            },
-            10: {
-                name: 'Circulaire Economie',
-                type: 'CONCEPT',
-                description: 'Economisch systeem waarbij grondstoffen, componenten en producten hun waarde behouden en hergebruikt worden.',
-                relationships: 8,
-                documents: 15,
-                domains: 5,
-                occurrences: [
-                    { doc: 'Project Circulaire Economie 2025', context: '...overstap naar een circulaire economie is essentieel...' },
-                    { doc: 'Innovatieagenda Flevoland', context: '...circulaire economie als speerpunt voor de toekomst...' }
-                ],
-                relatedEntities: [
-                    { name: 'Provincie Flevoland', type: 'MANAGED_BY', strength: 0.92 },
-                    { name: 'Duurzaamheid', type: 'PART_OF', strength: 0.90 },
-                    { name: 'Groene Energie', type: 'RELATED_TO', strength: 0.82 },
-                    { name: 'Klimaatwet', type: 'SUPPORTS', strength: 0.86 }
-                ]
-            }
-        };
+            { from: 40, to: 1, label: 'WORKS_FOR' },
+            { from: 40, to: 10, label: 'MANAGES' },
+            { from: 41, to: 1, label: 'WORKS_FOR' },
+            { from: 41, to: 13, label: 'LEADS' },
 
-        // Color mapping
-        const colors = {
-            ORGANIZATION: '#0066CC',
-            PERSON: '#7CB342',
-            LOCATION: '#FF9800',
-            CONCEPT: '#9C27B0',
-            LAW: '#F44336',
-            EVENT: '#00BCD4'
-        };
+            { from: 1, to: 2, label: 'COLLABORATES' },
+            { from: 1, to: 5, label: 'PARTNERS_WITH' },
+            { from: 2, to: 5, label: 'COORDINATES' }
+        ];
 
-        // Initialize network
         let network;
-        let physicsEnabled = true;
+        let physicsOn = true;
 
-        function initGraph() {
-            const container = document.getElementById('knowledge-graph');
+        function initNetwork() {
+            console.log('Initializing network...');
 
-            // Transform data for vis.js
-            const nodes = new vis.DataSet(
-                graphData.nodes.map(node => ({
+            const container = document.getElementById('graph');
+
+            // Update stats
+            document.getElementById('node-count').textContent = nodes.length;
+            document.getElementById('edge-count').textContent = edges.length;
+
+            // Create vis.js datasets
+            const visNodes = new vis.DataSet(
+                nodes.map(node => ({
                     id: node.id,
                     label: node.label,
                     color: {
-                        background: colors[node.type],
-                        border: colors[node.type],
+                        background: node.color,
+                        border: node.color,
                         highlight: {
-                            background: colors[node.type],
+                            background: node.color,
                             border: '#333'
                         }
                     },
                     font: {
                         color: 'white',
-                        size: 12,
+                        size: 14,
                         face: 'Segoe UI'
                     },
-                    size: 15 + (node.sourceCount || 1) * 2,
-                    title: `${node.label}\n${node.type}\nConfidence: ${(node.confidence * 100).toFixed(0)}%\nSources: ${node.sourceCount}`,
-                    type: node.type,
-                    group: node.group
+                    size: 25,
+                    borderWidth: 2,
+                    shadow: true
                 }))
             );
 
-            const edges = new vis.DataSet(
-                graphData.edges.map(edge => ({
+            const visEdges = new vis.DataSet(
+                edges.map((edge, idx) => ({
+                    id: idx,
                     from: edge.from,
                     to: edge.to,
                     label: edge.label,
-                    title: `${edge.label}\nStrength: ${(edge.strength * 100).toFixed(0)}%`,
-                    value: edge.strength * 5,
+                    arrows: 'to',
                     color: {
                         color: '#999',
                         highlight: '#0066CC'
                     },
                     font: {
-                        size: 10,
-                        align: 'middle'
+                        size: 11,
+                        align: 'top'
                     },
-                    arrows: {
-                        to: {
-                            enabled: true,
-                            scaleFactor: 0.5
-                        }
-                    },
-                    strength: edge.strength,
                     smooth: {
-                        type: 'curvedCW',
-                        roundness: 0.2
+                        type: 'cubicBezier',
+                        roundness: 0.4
                     }
                 }))
             );
 
-            const data = { nodes, edges };
+            const data = {
+                nodes: visNodes,
+                edges: visEdges
+            };
 
             const options = {
                 physics: {
                     enabled: true,
                     barnesHut: {
-                        gravitationalConstant: -8000,
-                        centralGravity: 0.3,
-                        springLength: 150,
-                        springConstant: 0.04,
-                        damping: 0.09
+                        gravitationalConstant: -2000,
+                        springConstant: 0.001,
+                        springLength: 200
                     },
                     stabilization: {
-                        iterations: 200
+                        iterations: 150
                     }
                 },
                 interaction: {
                     hover: true,
-                    tooltipDelay: 100,
-                    navigationButtons: true
+                    tooltipDelay: 100
                 },
                 nodes: {
-                    shape: 'dot',
-                    scaling: {
-                        min: 10,
-                        max: 30
-                    },
-                    borderWidth: 2,
-                    shadow: true
+                    shape: 'dot'
                 },
                 edges: {
-                    width: 2,
-                    smooth: true,
-                    shadow: true
+                    width: 2
                 }
             };
 
             network = new vis.Network(container, data, options);
 
-            // Event handlers
             network.on('click', function(params) {
                 if (params.nodes.length > 0) {
-                    showEntityDetails(params.nodes[0]);
-                } else {
-                    hideDetails();
+                    const nodeId = params.nodes[0];
+                    const node = nodes.find(n => n.id === nodeId);
+                    if (node) {
+                        alert(`Entiteit: ${node.label.replace('\n', ' ')}\nType: ${node.type}`);
+                    }
                 }
             });
 
             network.on('stabilizationIterationsDone', function() {
+                console.log('Network stabilized');
                 network.setOptions({ physics: false });
-                physicsEnabled = false;
+                physicsOn = false;
             });
+
+            console.log('Network initialized successfully!');
         }
 
-        function showEntityDetails(nodeId) {
-            const node = graphData.nodes.find(n => n.id === nodeId);
-            const details = entityDetails[nodeId];
-
-            const panel = document.getElementById('details-panel');
-
-            if (!details) {
-                panel.innerHTML = `
-                    <h2>Entiteit Details</h2>
-                    <div class="entity-card">
-                        <span class="entity-type-badge badge-${node.type.toLowerCase()}">${node.type}</span>
-                        <div class="entity-name">${node.label.replace('\n', ' ')}</div>
-                        <div class="entity-stats">
-                            <div class="stat-box">
-                                <div class="stat-value">${(node.confidence * 100).toFixed(0)}%</div>
-                                <div class="stat-label">Confidence</div>
-                            </div>
-                            <div class="stat-box">
-                                <div class="stat-value">${node.sourceCount}</div>
-                                <div class="stat-label">Sources</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="section-title">Community</div>
-                    <div class="occurrence-item">
-                        ${node.group.charAt(0).toUpperCase() + node.group.slice(1)}
-                    </div>
-                `;
-                return;
+        function fitNetwork() {
+            if (network) {
+                network.fit({ animation: true });
             }
-
-            panel.innerHTML = `
-                <h2>Entiteit Details</h2>
-                <div class="entity-card">
-                    <span class="entity-type-badge badge-${details.type.toLowerCase()}">${details.type}</span>
-                    <div class="entity-name">${details.name}</div>
-                    <p style="color: #666; font-size: 13px; margin: 10px 0;">${details.description}</p>
-
-                    <div class="entity-stats">
-                        <div class="stat-box">
-                            <div class="stat-value">${details.relationships}</div>
-                            <div class="stat-label">Relaties</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value">${details.documents}</div>
-                            <div class="stat-label">Documenten</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value">${details.domains}</div>
-                            <div class="stat-label">Domeinen</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value">${(node.confidence * 100).toFixed(0)}%</div>
-                            <div class="stat-label">Confidence</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section-title">🔗 Gerelateerde Entiteiten</div>
-                <div class="relationships-list">
-                    ${details.relatedEntities.map(rel => `
-                        <div class="relationship-item">
-                            <div class="relationship-type">${rel.type}</div>
-                            <div class="relationship-target">${rel.name}</div>
-                            <span class="relationship-strength">${(rel.strength * 100).toFixed(0)}% sterkte</span>
-                        </div>
-                    `).join('')}
-                </div>
-
-                <div class="section-title">📄 Voorkomens in Documenten</div>
-                <div class="occurrences-list">
-                    ${details.occurrences.map(occ => `
-                        <div class="occurrence-item">
-                            <strong>${occ.doc}</strong>
-                            <div class="occurrence-context">${occ.context}</div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
-
-        function hideDetails() {
-            const panel = document.getElementById('details-panel');
-            panel.innerHTML = `
-                <div class="no-selection">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                    <p>Selecteer een entiteit of relatie in de graaf om details te zien</p>
-                </div>
-            `;
-        }
-
-        function fitGraph() {
-            network.fit({ animation: true });
         }
 
         function togglePhysics() {
-            physicsEnabled = !physicsEnabled;
-            network.setOptions({ physics: physicsEnabled });
-        }
-
-        function exportGraph() {
-            const canvas = document.querySelector('#knowledge-graph canvas');
-            const url = canvas.toDataURL('image/png');
-            const link = document.createElement('a');
-            link.download = 'graphrag-kennisgraaf.png';
-            link.href = url;
-            link.click();
-        }
-
-        // Community filter
-        document.querySelectorAll('.community-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.community-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-
-                const community = this.dataset.community;
-                filterByCommunity(community);
-            });
-        });
-
-        function filterByCommunity(community) {
-            if (community === 'all') {
-                graphData.nodes.forEach(node => {
-                    network.body.data.nodes.update({ id: node.id, hidden: false });
-                });
-                graphData.edges.forEach(edge => {
-                    network.body.data.edges.update({ id: edge.from + '-' + edge.to, hidden: false });
-                });
-            } else {
-                graphData.nodes.forEach(node => {
-                    const hidden = node.group !== community;
-                    network.body.data.nodes.update({ id: node.id, hidden });
-                });
+            if (network) {
+                physicsOn = !physicsOn;
+                network.setOptions({ physics: physicsOn });
             }
-            network.fit();
         }
 
-        // Strength filter
-        document.getElementById('strength-filter').addEventListener('input', function(e) {
-            const value = e.target.value / 100;
-            document.getElementById('strength-value').textContent = value.toFixed(2);
-
-            // Filter edges by strength
-            graphData.edges.forEach((edge, idx) => {
-                const hidden = edge.strength < value;
-                try {
-                    network.body.data.edges.update({ id: idx, hidden });
-                } catch(e) {}
-            });
-        });
-
-        // Initialize on load
-        window.addEventListener('load', () => {
-            initGraph();
+        // Initialize when page loads
+        window.addEventListener('load', function() {
+            console.log('Page loaded, initializing network...');
+            setTimeout(initNetwork, 100);
         });
     </script>
 </body>
