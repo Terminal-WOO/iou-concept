@@ -7,7 +7,7 @@ Voorbeeldimplementatie van het **Informatie Ondersteunde Werkomgeving (IOU) conc
 Dit project demonstreert hoe het IOU-concept praktisch geïmplementeerd kan worden, met focus op:
 
 - **Context-gedreven werken**: Alle informatie georganiseerd rondom het doel (zaak, project, beleid)
-- **Compliance by Design**: Wet- en regelgeving (WOO, AVG, Archiefwet) automatisch ingeregeld
+- **Compliance by Design**: Wet- en regelgeving (Woo, AVG, Archiefwet) automatisch ingeregeld
 - **Integraal werken**: Eén geïntegreerde omgeving in plaats van informatiesilo's
 - **AI-ondersteuning**: Automatische metadata-extractie en context-herkenning
 - **Flexibele app-store**: Context-aware micro-services
@@ -23,7 +23,7 @@ De **Organisatorische Context (OC)** fungeert als het integrerend element:
 ### 2. Compliance by Design
 Wet- en regelgeving wordt integraal "onder de motorkap" ingeregeld:
 - ✅ **Archiefwet**: Automatische bewaartermijnen
-- ✅ **WOO**: Metadata voor openbaarmaking by design
+- ✅ **Woo**: Metadata voor openbaarmaking by design
 - ✅ **AVG**: Privacy-classificatie bij creatie
 - ✅ **BIO**: Informatiebeveiliging ingebakken
 
@@ -60,7 +60,7 @@ IOU-concept/
 │   └── frontend/
 │       ├── context_dashboard.html        # Hoofddashboard
 │       ├── flevoland-theme.css          # Provincie Flevoland huisstijl
-│       ├── document-detail-woo.html     # WOO-voorbeeld detail pagina
+│       ├── document-detail-woo.html     # Woo-voorbeeld detail pagina
 │       ├── related-domains.html         # Netwerk visualisatie
 │       ├── ai-suggestions.html          # AI metadata suggesties
 │       └── apps/                        # Context-aware applicaties
@@ -172,7 +172,7 @@ suggestions = await ai_service.extract_metadata_from_document(
 1. **Named Entity Recognition**: Personen, organisaties, locaties
 2. **Context detectie**: Automatisch vakgebied herkennen
 3. **Juridische referenties**: Extract verwijzingen naar wetten
-4. **WOO-relevantie**: Bepaal of openbaarmakingsplichtig
+4. **Woo-relevantie**: Bepaal of openbaarmakingsplichtig
 5. **Classificatie**: Openbaar/intern/vertrouwelijk
 6. **Bewaartermijn**: Suggestie op basis van documenttype
 7. **Tag generatie**: Automatische keywords
@@ -200,7 +200,7 @@ Interactieve demo van de werkomgeving met **Provincie Flevoland huisstijl**:
 - **Flevoland branding**: Blauw (#0066CC) en groen (#7CB342) kleurenschema
 
 #### Detail Pagina's
-- **`document-detail-woo.html`**: Real-world WOO-besluit met volledige metadata, timeline en compliance status
+- **`document-detail-woo.html`**: Real-world Woo-besluit met volledige metadata, timeline en compliance status
 - **`related-domains.html`**: Netwerk visualisatie van gerelateerde domeinen met vis-network.js
 - **`ai-suggestions.html`**: Interactieve AI metadata suggesties met accept/reject/modify functionaliteit
 
@@ -208,7 +208,7 @@ Interactieve demo van de werkomgeving met **Provincie Flevoland huisstijl**:
 - **📊 Data Explorer**: OpenStreetMap visualisatie met Leaflet.js, interactieve provinciedata
 - **📝 Document Generator**: Template-based document generatie met metadata
 - **👥 Stakeholder Mapper**: Netwerk visualisatie van betrokken partijen
-- **✅ Compliance Checker**: Automatische controle op WOO, AVG, Archiefwet
+- **✅ Compliance Checker**: Automatische controle op Woo, AVG, Archiefwet
 - **📅 Timeline Viewer**: Chronologisch overzicht van alle activiteiten
 - **💬 Collaboration Hub**: Real-time samenwerking binnen context
 
@@ -243,7 +243,7 @@ Interactieve demo van de werkomgeving met **Provincie Flevoland huisstijl**:
 ### Voor de Organisatie
 
 ✅ **Compliance by design**
-- WOO, AVG, Archiefwet automatisch
+- Woo, AVG, Archiefwet automatisch
 - Intrinsiek veilige informatiehuishouding
 - Fijnmazig autorisatieschema
 
@@ -281,7 +281,7 @@ Interactieve demo van de werkomgeving met **Provincie Flevoland huisstijl**:
 - ✅ Frontend (volledig interactief met Flevoland huisstijl)
 - ✅ Context-aware apps (6 werkende applicaties)
 - ✅ OpenStreetMap integratie (Leaflet.js)
-- ✅ Real-world WOO use case geïmplementeerd
+- ✅ Real-world Woo use case geïmplementeerd
 - ✅ GitHub Pages deployment gereed
 
 **Doel**: ✅ Visualiseren van het concept - **BEREIKT**
@@ -375,7 +375,7 @@ https://terminal-woo.github.io/iou-concept/
 # Hoofddashboard
 open src/frontend/context_dashboard.html
 
-# WOO detail pagina
+# Woo detail pagina
 open src/frontend/document-detail-woo.html
 
 # Data Explorer met OpenStreetMap
@@ -430,7 +430,7 @@ ai_service = AIMetadataService(model_provider="azure")
 - Automatisch juiste formulieren en werkproces
 - Alle relevante wet- en regelgeving beschikbaar
 - Stakeholders (aanvrager, adviseurs) automatisch gekoppeld
-- WOO-relevantie gedetecteerd
+- Woo-relevantie gedetecteerd
 - Bewaartermijn: 7 jaar na afronding
 
 ### 2. Project Circulaire Economie
@@ -448,19 +448,19 @@ ai_service = AIMetadataService(model_provider="azure")
 - Historisch overzicht eerdere beleidsperiodes
 - Automatische links naar uitvoering
 
-### 4. WOO-verzoek Basiskaart Agrarische Bedrijfssituatie 2021
+### 4. Woo-verzoek Basiskaart Agrarische Bedrijfssituatie 2021
 
-**Context**: Zaak (WOO-procedure)
+**Context**: Zaak (Woo-procedure)
 
-**Real-world voorbeeld**: [Rijksoverheid.nl - WOO-besluit Basiskaart Agrarische Bedrijfssituatie](https://www.rijksoverheid.nl/documenten/publicaties/2025/10/07/openbaargemaakt-document-bij-besluit-woo-verzoek-over-basiskaart-agrarische-bedrijfssituatie-2021)
+**Real-world voorbeeld**: [Rijksoverheid.nl - Woo-besluit Basiskaart Agrarische Bedrijfssituatie](https://www.rijksoverheid.nl/documenten/publicaties/2025/10/07/openbaargemaakt-document-bij-besluit-woo-verzoek-over-basiskaart-agrarische-bedrijfssituatie-2021)
 
 **Achtergrond**:
-In februari 2023 ontvingen journalisten van NRC, Follow the Money en Omroep Gelderland toegang tot de Basiskaart Agrarische Bedrijfssituatie (BAB) van 2021 via een WOO-verzoek. De Rijksdienst voor Ondernemend Nederland (RVO) moest afwegen tussen openbaarheid en privacy van agrariërs.
+In februari 2023 ontvingen journalisten van NRC, Follow the Money en Omroep Gelderland toegang tot de Basiskaart Agrarische Bedrijfssituatie (BAB) van 2021 via een Woo-verzoek. De Rijksdienst voor Ondernemend Nederland (RVO) moest afwegen tussen openbaarheid en privacy van agrariërs.
 
 **Hoe IOU dit ondersteunt**:
 
-**Automatische WOO-herkenning**:
-- AI detecteert formele WOO-verzoeken automatisch
+**Automatische Woo-herkenning**:
+- AI detecteert formele Woo-verzoeken automatisch
 - Classificatie: `is_woo_relevant = true`
 - Wettelijke termijn bewaking (4 weken standaard, 8 weken met verlenging)
 - UUID-generatie voor traceerbaarheid: `140b872e-26a2-433e-96d5-3d74f7fa981d`
@@ -483,7 +483,7 @@ In februari 2023 ontvingen journalisten van NRC, Follow the Money en Omroep Geld
    - Bezwaartermijn (2 weken) ingepland
 
 4. **Besluit** (04-05-2023):
-   - Formeel WOO-besluit genomen
+   - Formeel Woo-besluit genomen
    - Metadata volledig: documenttype, wettelijke grondslag, bewaartermijn (permanent)
    - Gerelateerde documenten automatisch gekoppeld
 
@@ -500,9 +500,9 @@ In februari 2023 ontvingen journalisten van NRC, Follow the Money en Omroep Geld
 
 **AI-suggesties tijdens proces**:
 - **Metadata-extractie**: Onderwerp (landbouw, diergezondheid, dierenwelzijn), tags
-- **Classificatie**: WOO-besluit met dataset, publicatieplicht actief openbaar
+- **Classificatie**: Woo-besluit met dataset, publicatieplicht actief openbaar
 - **Compliance-check**: AVG-waarborgen (geanonimiseerd), bewaartermijn permanent
-- **Relatie-detectie**: Koppeling met eerdere WOO-besluiten over landbouwdata
+- **Relatie-detectie**: Koppeling met eerdere Woo-besluiten over landbouwdata
 
 **Meetbare resultaten**:
 - ✅ Volledige compliance met Wet open overheid
@@ -518,7 +518,7 @@ In februari 2023 ontvingen journalisten van NRC, Follow the Money en Omroep Geld
 - Juristen en data-specialisten moeten nauw samenwerken
 - Automatische metadata versnelt proces aanzienlijk
 
-Dit voorbeeld toont hoe het IOU-concept een complexe WOO-procedure ondersteunt van begin tot eind, met automatische compliance, stakeholder-management en transparante besluitvorming.
+Dit voorbeeld toont hoe het IOU-concept een complexe Woo-procedure ondersteunt van begin tot eind, met automatische compliance, stakeholder-management en transparante besluitvorming.
 
 ## Kritische Succesfactoren
 
@@ -577,7 +577,7 @@ Dit voorbeeld toont hoe het IOU-concept een complexe WOO-procedure ondersteunt v
 - `IOU concept vanuit 3 perspectieven.pdf`: Kernprincipes
 - `Woo-implementatie suggesties.pdf`: AI/ML implementatie
 - `TESTDATA.md`: Test scenario's en SQL voorbeelden
-- Real-world WOO voorbeeld: [Rijksoverheid.nl - Basiskaart Agrarische Bedrijfssituatie](https://www.rijksoverheid.nl/documenten/publicaties/2025/10/07/openbaargemaakt-document-bij-besluit-woo-verzoek-over-basiskaart-agrarische-bedrijfssituatie-2021)
+- Real-world Woo voorbeeld: [Rijksoverheid.nl - Basiskaart Agrarische Bedrijfssituatie](https://www.rijksoverheid.nl/documenten/publicaties/2025/10/07/openbaargemaakt-document-bij-besluit-woo-verzoek-over-basiskaart-agrarische-bedrijfssituatie-2021)
 
 ### Architectuurprincipes
 - **AL-0**: Wendbare architectuur
@@ -610,7 +610,7 @@ Voor vragen over het IOU-concept of deze implementatie:
 Deze implementatie toont hoe het IOU-concept praktisch gerealiseerd kan worden:
 
 - ✅ **Context-gedreven**: Alles georganiseerd rondom zaak/project/beleid
-- ✅ **Compliance by design**: WOO, AVG, Archiefwet automatisch
+- ✅ **Compliance by design**: Woo, AVG, Archiefwet automatisch
 - ✅ **AI-ondersteuning**: Metadata-extractie zonder extra werk
 - ✅ **Wendbaar**: Bouw op bestaand landschap
 - ✅ **Meetbaar**: Concrete KPI's voor succes
@@ -626,8 +626,8 @@ Bekijk de werkende demonstrator op: **[https://terminal-woo.github.io/iou-concep
 Alle features zijn volledig functioneel:
 - 🏛️ Interactief dashboard met Flevoland branding
 - 📊 OpenStreetMap data visualisatie
-- 📄 Real-world WOO-voorbeeld
+- 📄 Real-world Woo-voorbeeld
 - 🔗 6 context-aware applicaties
 - 🤖 AI metadata suggesties
 
-**Testdata basis**: Het WOO-voorbeeld is gebaseerd op een echt besluit van de Nederlandse overheid voor transparantie in de landbouwsector.
+**Testdata basis**: Het Woo-voorbeeld is gebaseerd op een echt besluit van de Nederlandse overheid voor transparantie in de landbouwsector.

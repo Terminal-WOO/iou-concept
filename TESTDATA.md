@@ -52,34 +52,34 @@ Complete testdata voor alle sectoren van de Informatie Ondersteunde Werkomgeving
 1. **Subsidieaanvraag Groene Energie BV** (SUB-2025-0142)
    - Type: Subsidie
    - Bewaartermijn: 7 jaar
-   - WOO-klasse: Openbaar
+   - Woo-klasse: Openbaar
    - Stakeholder: Groene Energie BV (aanvrager)
 
 2. **Omgevingsvergunning Windturbine Dronten** (OMV-2025-0089)
    - Type: Vergunning
    - Bewaartermijn: 10 jaar
-   - WOO-klasse: Openbaar
+   - Woo-klasse: Openbaar
    - Stakeholders: WindPower Nederland BV, Stichting Natuur Flevoland
 
 3. **Bezwaar Afwijzing Bouwvergunning Almere** (BZW-2025-0023)
    - Type: Bezwaar
    - Bewaartermijn: 20 jaar
-   - WOO-klasse: Deels openbaar
+   - Woo-klasse: Deels openbaar
    - Stakeholder: Familie Smit
 
-4. **WOO-verzoek Windpark Communicatie** (WOO-2025-0008)
-   - Type: WOO-verzoek
+4. **Woo-verzoek Windpark Communicatie** (Woo-2025-0008)
+   - Type: Woo-verzoek
    - Bewaartermijn: 5 jaar
-   - WOO-klasse: Openbaar
+   - Woo-klasse: Openbaar
    - Stakeholder: Stichting Natuur Flevoland
 
-5. **WOO-verzoek Basiskaart Agrarische Bedrijfssituatie 2021** (WOO-2023-0194)
-   - Type: WOO-verzoek (Real-world voorbeeld)
+5. **Woo-verzoek Basiskaart Agrarische Bedrijfssituatie 2021** (Woo-2023-0194)
+   - Type: Woo-verzoek (Real-world voorbeeld)
    - Ontvangst: 14-02-2023
    - Besluit: 04-05-2023
    - Publicatie: 07-10-2025
    - Bewaartermijn: Permanent (archiefwaardig)
-   - WOO-klasse: Actief openbaar gemaakt
+   - Woo-klasse: Actief openbaar gemaakt
    - UUID: 140b872e-26a2-433e-96d5-3d74f7fa981d
    - Stakeholders:
      - Ministerie van LNV (verantwoordelijk)
@@ -90,7 +90,7 @@ Complete testdata voor alle sectoren van de Informatie Ondersteunde Werkomgeving
    - Onderwerpen: Landbouw, Diergezondheid, Dierenwelzijn, Veehouderij
    - URL: https://www.rijksoverheid.nl/documenten/publicaties/2025/10/07/openbaargemaakt-document-bij-besluit-woo-verzoek-over-basiskaart-agrarische-bedrijfssituatie-2021
    - Gerelateerde documenten:
-     - WOO-besluit (04-05-2023)
+     - Woo-besluit (04-05-2023)
      - Staatscourant bekendmaking 2023/4842
      - Privacy Impact Assessment
      - Juridisch advies
@@ -110,7 +110,7 @@ Complete testdata voor alle sectoren van de Informatie Ondersteunde Werkomgeving
 
 ### Documenten (14)
 
-| Titel | Type | Classificatie | WOO-relevant | Domain |
+| Titel | Type | Classificatie | Woo-relevant | Domain |
 |-------|------|---------------|--------------|---------|
 | Projectplan Circulaire Economie Q1 2025 | PDF | Intern | Nee | Project CE |
 | Data-analyse Afvalstromen Flevoland 2024 | Excel | Openbaar | Ja | Project CE |
@@ -121,8 +121,8 @@ Complete testdata voor alle sectoren van de Informatie Ondersteunde Werkomgeving
 | Advies Subsidieregeling Duurzame Energie | PDF | Intern | Nee | Zaak SUB |
 | Aanvraag Omgevingsvergunning Windturbines | PDF | Openbaar | Ja | Zaak OMV |
 | MER Windturbines Dronten | PDF | Openbaar | Ja | Zaak OMV |
-| WOO-verzoek Windpark Communicatie | PDF | Openbaar | Ja | Zaak WOO |
-| Inventarisatie WOO-documenten Windpark | Excel | Intern | Nee | Zaak WOO |
+| Woo-verzoek Windpark Communicatie | PDF | Openbaar | Ja | Zaak Woo |
+| Inventarisatie Woo-documenten Windpark | Excel | Intern | Nee | Zaak Woo |
 | Mobiliteitsvisie Flevoland 2030 - Concept | PDF | Openbaar | Ja | Beleid MOB |
 | Verkeerscijfers Flevoland 2020-2024 | CSV | Openbaar | Ja | Beleid MOB |
 | Energietransitie Strategie 2025-2035 | PDF | Openbaar | Ja | Beleid EN |
@@ -132,7 +132,7 @@ Complete testdata voor alle sectoren van de Informatie Ondersteunde Werkomgeving
 1. **Data Explorer** - Data analyse en visualisatie
 2. **Document Generator** - Documenten met auto-metadata
 3. **Stakeholder Mapper** - Netwerk visualisatie
-4. **Compliance Checker** - WOO/AVG/Archivering check
+4. **Compliance Checker** - Woo/AVG/Archivering check
 5. **Timeline Viewer** - Chronologisch overzicht
 6. **Collaboration Hub** - Chat en samenwerking
 7. **GEO Visualizer** - Geografische weergave
@@ -163,7 +163,7 @@ WHERE id.type = 'project'
 GROUP BY id.name, p.budget, p.project_phase, u.name;
 ```
 
-### 2. Alle WOO-relevante documenten
+### 2. Alle Woo-relevante documenten
 ```sql
 SELECT 
     io.title,
@@ -348,16 +348,16 @@ ON CONFLICT (user_id, app_id, domain_id)
 DO UPDATE SET usage_count = user_app_usage.usage_count + 1;
 ```
 
-### Scenario 2: Jan beoordeelt WOO-verzoek
+### Scenario 2: Jan beoordeelt Woo-verzoek
 ```sql
--- 1. Haal WOO-zaak op
-SELECT * FROM cases WHERE case_number = 'WOO-2025-0008';
+-- 1. Haal Woo-zaak op
+SELECT * FROM cases WHERE case_number = 'Woo-2025-0008';
 
 -- 2. Bekijk alle documenten in deze zaak
 SELECT * FROM v_enriched_information_objects
-WHERE domain_name = 'WOO-verzoek Windpark Communicatie';
+WHERE domain_name = 'Woo-verzoek Windpark Communicatie';
 
--- 3. Check welke documenten WOO-relevant zijn
+-- 3. Check welke documenten Woo-relevant zijn
 SELECT 
     title,
     is_woo_relevant,
@@ -385,13 +385,13 @@ WHERE domain_type = 'project'
     AND tags && ARRAY['data', 'analyse', 'statistiek'];
 ```
 
-### Scenario 4: WOO-verzoek Behandeling (Real-world voorbeeld)
+### Scenario 4: Woo-verzoek Behandeling (Real-world voorbeeld)
 
-**Context**: Behandeling van het WOO-verzoek voor Basiskaart Agrarische Bedrijfssituatie 2021
+**Context**: Behandeling van het Woo-verzoek voor Basiskaart Agrarische Bedrijfssituatie 2021
 
-**Stap 1: Ontvangst WOO-verzoek**
+**Stap 1: Ontvangst Woo-verzoek**
 ```sql
--- Registreer nieuw WOO-verzoek als zaak
+-- Registreer nieuw Woo-verzoek als zaak
 INSERT INTO cases (
     domain_id, 
     case_type, 
@@ -400,8 +400,8 @@ INSERT INTO cases (
     status
 ) VALUES (
     'e0000000-0000-0000-0000-000000000012',
-    'WOO-verzoek',
-    'WOO-2023-0194',
+    'Woo-verzoek',
+    'Woo-2023-0194',
     'Verzoek om openbaarmaking Basiskaart Agrarische Bedrijfssituatie 2021 van journalisten',
     'in_behandeling'
 );
@@ -426,7 +426,7 @@ WHERE information_object_id = (
 AND suggestion_type IN ('classification', 'compliance_check');
 
 -- Resultaat:
--- - WOO-relevant: YES (99% confidence)
+-- - Woo-relevant: YES (99% confidence)
 -- - AVG impact: HIGH (privacy assessment required)
 -- - Bewaartermijn: PERMANENT (archiefwaardig)
 -- - Publicatieplicht: ACTIEF
@@ -495,9 +495,9 @@ WHERE title = 'Basiskaart Agrarische Bedrijfssituatie 2021';
 -- Link gerelateerde documenten
 INSERT INTO domain_relations (source_domain_id, target_domain_id, relation_type)
 VALUES
-    -- WOO-besluit
+    -- Woo-besluit
     ((SELECT id FROM information_domains WHERE name LIKE '%Basiskaart%'),
-     (SELECT id FROM information_domains WHERE name = 'WOO-besluit 04-05-2023'),
+     (SELECT id FROM information_domains WHERE name = 'Woo-besluit 04-05-2023'),
      'has_decision'),
     -- Staatscourant bekendmaking
     ((SELECT id FROM information_domains WHERE name LIKE '%Basiskaart%'),
@@ -520,16 +520,16 @@ WHERE al.entity_type = 'information_object'
 ORDER BY al.created_at;
 
 -- Resultaat toont volledige traceerbaarheid:
--- 2023-02-14: WOO-verzoek ontvangen
+-- 2023-02-14: Woo-verzoek ontvangen
 -- 2023-02-15: DPIA gestart
 -- 2023-03-12: Staatscourant bekendmaking
 -- 2023-04-20: Bezwaartermijn verlopen
--- 2023-05-04: WOO-besluit genomen
+-- 2023-05-04: Woo-besluit genomen
 -- 2025-10-07: Dataset gepubliceerd
 ```
 
 **Lessons learned uit dit scenario**:
-- ✅ Volledige compliance met WOO door automatische detectie
+- ✅ Volledige compliance met Woo door automatische detectie
 - ✅ AVG-waarborgen door gedocumenteerde DPIA en anonimisering
 - ✅ Transparantie door complete audit trail
 - ✅ Efficiëntie door AI-suggesties (metadata, classificatie)
@@ -573,7 +573,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 - Project Circulaire Economie: `e0000000-0000-0000-0000-000000000001`
 - Project Digitale Transformatie: `e0000000-0000-0000-0000-000000000002`
 - Zaak Subsidie: `e0000000-0000-0000-0000-000000000011`
-- Zaak WOO-verzoek: `e0000000-0000-0000-0000-000000000014`
+- Zaak Woo-verzoek: `e0000000-0000-0000-0000-000000000014`
 - Beleid Mobiliteitsvisie: `e0000000-0000-0000-0000-000000000021`
 
 ## 🚀 Next Steps
