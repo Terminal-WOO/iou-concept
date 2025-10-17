@@ -45,8 +45,7 @@ Informatiedomeinen worden samenwerkingsdomeinen:
 IOU-concept/
 ├── docs/                           # Originele PDF documentatie
 │   ├── IOU concept vanuit 3 perspectieven.pdf
-│   ├── Woo-implementatie suggesties.pdf
-│   └── Vraagstelling demonstrator.pdf
+│   └── Woo-implementatie suggesties.pdf
 │
 ├── src/
 │   ├── models/
@@ -59,8 +58,21 @@ IOU-concept/
 │   │   └── ai_metadata_service.py        # AI/ML componenten
 │   │
 │   └── frontend/
-│       └── context_dashboard.html        # Demo UI
+│       ├── context_dashboard.html        # Hoofddashboard
+│       ├── flevoland-theme.css          # Provincie Flevoland huisstijl
+│       ├── document-detail-woo.html     # WOO-voorbeeld detail pagina
+│       ├── related-domains.html         # Netwerk visualisatie
+│       ├── ai-suggestions.html          # AI metadata suggesties
+│       └── apps/                        # Context-aware applicaties
+│           ├── data-explorer.html       # Data visualisatie (OpenStreetMap)
+│           ├── document-generator.html
+│           ├── stakeholder-mapper.html
+│           ├── compliance-checker.html
+│           ├── timeline-viewer.html
+│           └── collaboration-hub.html
 │
+├── TESTDATA.md                     # Test scenario's en SQL voorbeelden
+├── DEPLOYMENT.md                   # GitHub Pages deployment guide
 └── README.md
 ```
 
@@ -174,27 +186,37 @@ suggestions = await ai_service.extract_metadata_from_document(
 - Vertaal wet/regelgeving naar machine-leesbare regels
 - Voorbeeld: "Besluiten moeten 20 jaar bewaard" → `{retention_period: 20}`
 
-### 4. Frontend Dashboard (`context_dashboard.html`)
+### 4. Frontend Dashboard
 
-Interactieve demo van de werkomgeving:
+Interactieve demo van de werkomgeving met **Provincie Flevoland huisstijl**:
 
-**Features**:
+#### Hoofddashboard (`context_dashboard.html`)
 - Context-switcher (wissel tussen zaak/project/beleid)
-- Context-aware app grid (6 voorbeeld apps)
+- Context-aware app grid (6 klikbare apps)
 - Recente documenten met automatische metadata
 - Stakeholder overzicht
 - Compliance status dashboard
-- AI-suggesties voor metadata
 - Gerelateerde projecten/zaken
-- Semantic search
+- **Flevoland branding**: Blauw (#0066CC) en groen (#7CB342) kleurenschema
 
-**Apps in demo**:
-- 📊 Data Explorer
-- 📝 Document Generator
-- 👥 Stakeholder Mapper
-- ✅ Compliance Checker
-- 📅 Timeline Viewer
-- 💬 Collaboration Hub
+#### Detail Pagina's
+- **`document-detail-woo.html`**: Real-world WOO-besluit met volledige metadata, timeline en compliance status
+- **`related-domains.html`**: Netwerk visualisatie van gerelateerde domeinen met vis-network.js
+- **`ai-suggestions.html`**: Interactieve AI metadata suggesties met accept/reject/modify functionaliteit
+
+#### Context-Aware Apps (in `/apps`)
+- **📊 Data Explorer**: OpenStreetMap visualisatie met Leaflet.js, interactieve provinciedata
+- **📝 Document Generator**: Template-based document generatie met metadata
+- **👥 Stakeholder Mapper**: Netwerk visualisatie van betrokken partijen
+- **✅ Compliance Checker**: Automatische controle op WOO, AVG, Archiefwet
+- **📅 Timeline Viewer**: Chronologisch overzicht van alle activiteiten
+- **💬 Collaboration Hub**: Real-time samenwerking binnen context
+
+#### Styling (`flevoland-theme.css`)
+- CSS variabelen voor consistente huisstijl
+- Gradient backgrounds met Flevoland kleuren
+- Responsive design voor desktop en tablet
+- Province-specific branding elementen
 
 ## Voordelen per Perspectief
 
@@ -528,7 +550,8 @@ Dit voorbeeld toont hoe het IOU-concept een complexe WOO-procedure ondersteunt v
 ### Documentatie
 - `IOU concept vanuit 3 perspectieven.pdf`: Kernprincipes
 - `Woo-implementatie suggesties.pdf`: AI/ML implementatie
-- `Vraagstelling demonstrator.pdf`: Use cases en vereisten
+- `TESTDATA.md`: Test scenario's en SQL voorbeelden
+- Real-world WOO voorbeeld: [Rijksoverheid.nl - Basiskaart Agrarische Bedrijfssituatie](https://www.rijksoverheid.nl/documenten/publicaties/2025/10/07/openbaargemaakt-document-bij-besluit-woo-verzoek-over-basiskaart-agrarische-bedrijfssituatie-2021)
 
 ### Architectuurprincipes
 - **AL-0**: Wendbare architectuur
