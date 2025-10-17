@@ -1,0 +1,534 @@
+Interne Appstore voor Contextuele
+Informatieondersteuning
+Er is een duidelijke behoefte aan exibele, contextgedreven toegang tot informatiebronnen. Hier
+is hoe een interne Appstore hieraan kan bijdragen:
+
+Uit het Flevoland-onderzoek:
+•
+•
+•
+•
+
+Medewerkers werken in verschillende contexten (projecten, zaken, expertiseteams)
+Behoefte aan genetwerkte navigatie tussen informatiedomeinen
+Ondersteuning moet by design ingeregeld zijn
+Minimale additionele handelingen voor medewerkers
+
+Uit het onderzoek Werkomgeving Rijk:
+•
+•
+•
+•
+
+Frustratie over te veel silo's en keren inloggen
+Gebrek aan interoperabiliteit
+Behoefte aan gebruiksvriendelijkheid en ef ciency
+Systemen moeten ondersteunend zijn, niet blokkerend
+
+Appstore-Concept: Contextgedreven Informatie-Apps
+1. Context-Aware App Catalog
+Structuur:
+├── Persoonlijk Dashboard
+│ ├── Aanbevolen apps (op basis van rol/context)
+│ └── Recent gebruikte apps
+├── Context-speci eke Catalogi
+│ ├── Apps voor Projecten
+│ ├── Apps voor Zaken
+│ ├── Apps voor Expertiseteams
+│ └── Apps voor Beleidsonderwerpen
+└── Organisatiebrede Apps
+Implementatie: Apps worden automatisch voorgesteld op basis van:
+•
+•
+•
+
+De rol van de medewerker
+Het informatiedomein waarin ze werken
+Rechten via IAM (Identity & Access Management)
+
+2. Micro-Services Architectuur
+In plaats van monolithische applicaties, bied speci eke functionaliteit aan:
+Voorbeelden van "Apps":
+
+fi
+
+fi
+
+fl
+
+Data Explorer - Voor data team: directe toegang tot geo-data, statistieken
+
+fi
+
+•
+
+•
+•
+•
+•
+•
+
+Document Generator - Automatisch metadata toevoegen binnen context
+Collaboration Hub - Chat, mail, agenda speci ek voor een project
+Compliance Checker - Archivering/WOO-check voor documenten
+Stakeholder Mapper - Visualisatie van betrokken partijen bij een zaak
+Timeline Viewer - Chronologisch overzicht van zaakgerelateerde events
+
+3. Integratie met Model- en Regelset
+De Appstore is geen extra laag, maar onderdeel van de data- en regelhub:
+[Medewerker werkt aan Project X]
+↓
+[Model herkent context: "Project X"]
+↓
+[Regelset bepaalt: welke apps zijn relevant?]
+↓
+[Appstore toont: 5 relevante apps]
+↓
+[Medewerker kiest app → automatisch juiste data ontsloten]
+Kritisch verschil: Apps zijn geen standalone tools, maar vensters op geïntegreerde databronnen.
+
+4. Concrete Implementatie-Eisen
+A. Single Sign-On (SSO)
+•
+•
+
+Eén keer inloggen = toegang tot alle apps
+Lost grootste frustratie op uit Rijksonderzoek
+
+B. Contextbehoud bij App-Wissel
+Scenario:
+1. Medewerker bekijkt zaakdossier
+2. Opent "Data Explorer" app
+3. Data Explorer toont automatisch relevante cijfers voor díe zaak
+4. Switcht naar "Mail" app
+5. Mail-app ltert automatisch op communicatie over díe zaak
+C. Metadata
+•
+•
+•
+
+Apps erven metadata van de context
+Document aangemaakt in "Project X" krijgt automatisch projecttags, voorbereid op zoeken
+bij openbaarmaking
+Implementeert "by design" compliance uit beide documenten
+
+5. Voordelen t.o.v. Huidige Situatie
+Appstore-Oplossing
+
+fi
+
+fi
+
+Probleem (uit
+onderzoeken)
+
+Te veel silo's
+Veel keren inloggen
+Slechte zoekfuncties
+Gebruikersonvriendelij
+k
+Systemen blokkeren
+werk
+Gebrek
+interoperabiliteit
+
+Apps zijn façades op geïntegreerde
+data
+SSO via centrale hub
+Context bepaalt beschikbare
+informatie
+Intuïtieve app-metafoor (bekend van
+mobiel)
+Apps zijn optioneel, niet dwingend
+Apps communiceren via API-laag met
+model
+
+Kritische Succesfactoren
+✅ Wél doen:
+1.
+2.
+3.
+4.
+
+Apps zijn context-sensitief, niet generiek
+Metamodel-gedreven: apps volgen structuur, niet andersom
+Opt-in: medewerkers kiezen welke apps ze gebruiken
+Telemetrie: analyseren welke apps nuttig zijn
+
+❌ Niet doen:
+1.
+2.
+3.
+4.
+
+Niet: nog een extra applicatie-laag toevoegen
+Niet: apps verplicht stellen (keuzevrijheid uit onderzoek)
+Niet: apps loskoppelen van compliance-regels
+Niet: aparte login per app vereisen
+
+Conclusie
+Een interne Appstore kan de wensen bedienen mits:
+•
+
+Het geen standalone oplossing is, maar integraal onderdeel van de model- en regelgedreven
+architectuur
+•
+Apps zijn lichtgewicht façades op geïntegreerde bronnen
+•
+De Appstore automatisch relevante apps voorstelt op basis van context
+•
+Metadata en compliance by design worden geërfd van het informatiedomein
+Dit lost de kern van beide documenten op: ondersteuning i.p.v. belemmering, terwijl organisatieniveau compliance geborgd blijft.
+
+AI-Implementatie voor Context-Aware
+Appstore
+AI kan op meerdere niveaus deze architectuur realiseren en verbeteren. Hier zijn de concrete
+toepassingen:
+
+1. Intelligente Context-Detectie & App-Aanbeveling
+A. Contextherkenning via NLP
+# Scenario: Medewerker opent zaak "Windpark Subsidieaanvraag 2025"
+AI analyseert:
+- Type document: subsidieaanvraag
+- Domein: energie/duurzaamheid
+- Fase: intake
+- Betrokken partijen: externe aanvrager, juridisch team
+- Relevante regelgeving: subsidieregeling, omgevingsrecht
+AI stelt voor:
+✓ Subsidie Calculator App
+✓ Juridische Compliance Checker
+✓ Stakeholder Communication Hub
+✓GEO Visualizer (voor locatiegegevens)
+Techniek:
+•
+•
+•
+
+Vector embeddings van informatiedomeinen
+Similarity search tussen gebruikerscontext en app-functionaliteit
+Collaborative ltering: "Medewerkers in vergelijkbare contexten gebruiken ook…"
+
+B. Adaptive App Launcher
+Traditioneel: Statisch menu met alle apps
+AI-gedreven: Dynamisch dashboard dat leert
+Week 1: Toont 10 potentieel relevante apps
+Week 4: Heeft geleerd welke 3 apps je echt gebruikt
+→ Prominenter getoond, snellere toegang
+
+2. Automatische Metadata-Extractie & Verrijking
+Probleem uit documenten:
+"Op verschillende plekken hetzelfde moeten opslaan zodat iedereen erbij kan"
+
+fi
+
+AI-Oplossing: Smart Metadata Generator
+
+Medewerker upload document in Project X
+↓
+AI analyseert inhoud (OCR + NLP)
+↓
+Extraheert automatisch:
+- Onderwerp: "verkeersanalyse"
+- Locatie: "Almere Buiten"
+- Betrokkenen: herkent namen in document
+- Gerelateerde zaken: vindt 3 eerdere rapporten
+- Classi catie: "intern, 5 jaar bewaren"
+↓
+Voegt metadata toe aan metamodel
+↓
+Document nu vindbaar via 5 contexten
+
+Technische Stack:
+•
+•
+•
+•
+
+Azure Form Recognizer: Structuur uit PDF's
+Named Entity Recognition: Extractie van personen, locaties, organisaties
+Custom Classi cation Models: Getraind op Flevoland/Rijks-taxonomie
+Knowledge Graph Embeddings: Automatisch relaties leggen
+
+3. Intelligent Information Retrieval binnen Apps
+A. Conversational Search
+Traditionele zoekbalk:
+"subsidie windenergie 2024" → 847 resultaten
+AI-gedreven zoek-app:
+🗣 "Welke subsidieaanvragen voor wind zijn dit jaar afgewezen?"
+AI begrijpt:
+- Domein: subsidies
+- Type: windenergie
+- Status: afgewezen
+- Tijdsperiode: 2025
+- Impliciete vraag: waarschijnlijk wil je de redenen weten
+→ Presenteert 12 relevante zaken MET samenvatting afwijzingsgronden
+Implementatie:
+•
+•
+
+Semantic search via vector databases (Pinecone, Weaviate)
+RAG (Retrieval Augmented Generation): AI genereert antwoord op basis van opgehaalde
+documenten
+Respect voor permissies: AI ziet alleen wat gebruiker mag zien
+
+fi
+
+fi
+
+•
+
+B. Cross-Silo Information Synthesis
+
+Vraag: "Wat is de status van het project Circulaire Economie?"
+AI combineert data uit:
+├── Projectmanagement-app: planning, milestones
+├── Financiën-app: budget, uitgaven
+├── Geo-app: locatiegegevens
+├── eDocs: laatste beleidsnota's
+└── Mail/Agenda: recente communicatie
+Genereert: Integraal statusoverzicht met bronverwijzingen
+Kritisch verschil: AI synthetiseert informatie uit bronnen, maar verandert geen brondata.
+Compliancy blijft geborgd.
+
+4. Regelset Automatisering via AI
+A. Wet- en Regelgeving Destilleren
+Input: Tekst Archiefwet, WOO, DUTO
+AI extraheert:
+IF document_type == "besluit"
+AND betrokken_partij == "externe_burger"
+THEN retention_period = "20 jaar"
+AND disclosure_class = "openbaar na anonimisering"
+Output: Machine-leesbare regels voor metamodel
+Proof of Concept Scenario:
+Medewerker maakt adviesbrief in App "Document Generator"
+↓
+AI detecteert document-type
+↓
+Past automatisch juiste regelset toe:
+✓ Archivering: 5 jaar
+✓ WOO: Na 6 maanden openbaar
+✓ Privacy: Naam bestuurder anonimiseren bij publicatie
+↓
+Metadata automatisch toegevoegd aan metamodel
+
+B. Compliance Monitoring
+AI-app: "Compliance Radar"
+•
+•
+
+Scant wekelijks informatiedomeinen
+Detecteert anomalieën:
+
+"Project X heeft 47 documenten zonder bewaartermijn"
+◦
+"Zaak Y: deadline WOO-publicatie over 3 dagen"
+◦
+Stuurt proactieve noti caties
+
+•
+
+5. Adaptive User Interface Generation
+Concept: "App-Personalisatie via Reinforcement Learning"
+AI observeert gebruikersgedrag:
+- Welke apps open je vaak samen?
+- Welke schermindelingen werk je het snelst?
+- Welke metadata-velden vul je altijd handmatig in?
+AI past interface aan:
+→ "Geo App" en "Data Explorer" nu naast elkaar in split-view
+→ Veelgebruikte lters vooraf ingevuld
+→ Metadata-veld "Projectfase" krijgt auto-suggest
+
+6. AI voor Proof of Concept - Concrete Toepassing
+AI-Functies in PoC:
+1. Smart App Injection
+AI ziet: document_type = "datarapport"
+AI activeert: Visualisatie-app automatisch
+2. Contextual Data Loading
+AI leest: project betreft "mobiliteit" + "Almere"
+AI haalt op: Relevante datasets uit Geo-systeem
+AI ltert: Alleen data met juiste spatiale extent
+3. Automated Work ow Suggestions
+AI observeert: Gebruiker exporteert data naar Excel
+AI suggereert: "Power BI app kan dit automatiseren”
+
+7. Microsoft Stack Implementatie
+Concrete Tooling voor Flevoland PoC:
+AI-Functie
+Context-detectie
+App-aanbeveling
+Metadata-extractie
+
+fi
+
+fl
+
+fi
+
+fi
+
+Semantic search
+
+Microsoft Tool
+Azure Cognitive
+Services
+Azure ML +
+Personalizer
+Azure Form
+Recognizer
+Azure Cognitive
+Search
+
+Alternatief
+AWS Comprehend
+Custom TensorFlow
+Textract + Spacy
+Elasticsearch +
+embeddings
+
+Regelset-extractie
+Conversational
+interface
+Knowledge Graph
+
+Azure OpenAI GPT-4
+
+Anthropic Claude
+
+Bot Framework + LUIS Rasa
+Azure Cosmos DB
+(Gremlin)
+
+Neo4j
+
+Architectuur met AI-Laag:
+┌─────────────────────────────────────────┐
+│ Gebruikersinterface + AI Assistant
+│ (Copilot-achtige interface)
+└─────────────────────────────────────────┘
+↓
+┌─────────────────────────────────────────┐
+│
+AI Orchestration Layer
+│ • Context Detection (ML)
+│ • App Recommendation Engine
+│ • Metadata Generator (NLP)
+│ • Smart Search (Vector DB)
+└─────────────────────────────────────────┘
+↓
+┌─────────────────────────────────────────┐
+│
+Data- en Regelhub (PoC)
+│ • Metamodel (enhanced met AI)
+│ • Regelsets (AI-veri ed)
+│ • App Registry
+└─────────────────────────────────────────┘
+
+8. Risico's & Mitigatie
+⚠ Kritische Aandachtspunten:
+1. Hallucination Risk
+•
+•
+
+Probleem: AI genereert onjuiste metadata/relaties
+Mitigatie:
+Altijd bronverwijzingen tonen
+◦
+Con dence scores per suggestie
+◦
+Menselijke validatie voor kritische zaken
+◦
+2. Privacy & Security
+•
+•
+
+Probleem: AI ziet mogelijk gevoelige data
+Mitigatie:
+On-premise AI-modellen (Azure OpenAI private deployment)
+◦
+Data minimization: AI ziet alleen metadata, niet content
+◦
+Audit logs van alle AI-acties
+◦
+
+fi
+
+fi
+
+3. Black Box Decision Making
+
+•
+•
+
+Probleem: Onduidelijk waarom AI app X aanbeveelt
+Mitigatie:
+Explainable AI: "Deze app omdat: [redenen]"
+◦
+Altijd override mogelijk door gebruiker
+◦
+
+9. Implementatiefasering
+Fase 1: Demonstrator (Q3-Q4 2025)
+•
+•
+•
+
+Basis AI: Simpele regelgebaseerde context-detectie
+No Machine Learning initieel, wel AI-"placeholders"
+Focus: Visualiseren hoe het eruit zou zien
+
+Fase 2: PoC (Q1-Q2 2026)
+•
+•
+•
+
+Eerste ML-model: App recommendation op basis van 3 maanden gebruikersdata
+Metadata-extractie: Azure Form Recognizer voor PDF's
+Semantic search: Cognitive Search voor 1 informatiedomein
+
+Fase 3: Con gureerbaar Platform (Q3-Q4 2026)
+•
+•
+•
+
+Custom models: Getraind op Flevoland-speci eke data
+Feedback loops: AI leert van gebruikerscorrecties
+Cross-domain: AI synthetiseert over alle domeinen
+
+10. Succesindicatoren
+Meet AI-impact via:
+•
+•
+•
+•
+
+Time-to-information: Hoe snel vindt gebruiker juiste data? (target: 50% reductie)
+Metadata compliance: % documenten met complete metadata (target: 95%+)
+App adoption: Hoeveel apps worden actief gebruikt? (target: 70% van aanbevelingen)
+Manual overrides: Hoe vaak corrigeert mens AI? (target: <10%)
+
+Conclusie
+AI is niet een "nice-to-have" maar essentieel om de complexiteit van een context-driven appstore
+beheersbaar te houden. Zonder AI wordt het metamodel een statische structuur die constant
+handmatig onderhouden moet worden. Met AI wordt het een zel erend systeem dat:
+1.
+2.
+3.
+4.
+5.
+
+Automatisch context herkent
+Relevante apps voorstelt
+Metadata genereert by design
+Compliance borgt zonder menselijke input
+Continu verbetert op basis van gebruik
+
+fl
+
+fi
+
+fi
+
+Kritische succesfactor: Start simpel (rule-based), bouw incrementeel naar ML-gedreven, meet
+constant de toegevoegde waarde.
+
+

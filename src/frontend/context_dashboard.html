@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>IOU Context Dashboard - Provincie Flevoland</title>
+        <link rel="stylesheet" href="flevoland-theme.css" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                background: #f5f7fa;
+                color: #333;
+            }
+
+            .header {
+                background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
+                color: white;
+                padding: 20px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                border-bottom: 3px solid #7cb342;
+            }
+
+            .header h1 {
+                font-size: 24px;
+                font-weight: 600;
+            }
+
+            .header .user-info {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            .user-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+            }
+
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .context-bar {
+                background: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .context-bar select {
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                font-size: 14px;
+                flex: 1;
+            }
+
+            .breadcrumb {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                color: #666;
+                font-size: 14px;
+            }
+
+            .breadcrumb span {
+                color: #0066cc;
+                font-weight: 500;
+            }
+
+            .dashboard-grid {
+                display: grid;
+                grid-template-columns: 1fr 2fr 1fr;
+                gap: 20px;
+            }
+
+            .panel {
+                background: white;
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            }
+
+            .panel h2 {
+                font-size: 18px;
+                margin-bottom: 15px;
+                color: #333;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            .app-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .app-card {
+                background: linear-gradient(135deg, #0066cc 0%, #7cb342 100%);
+                color: white;
+                padding: 15px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+            }
+
+            .app-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            }
+
+            .app-card h3 {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+
+            .app-card p {
+                font-size: 12px;
+                opacity: 0.9;
+            }
+
+            .app-badge {
+                display: inline-block;
+                background: rgba(255, 255, 255, 0.2);
+                padding: 2px 8px;
+                border-radius: 12px;
+                font-size: 10px;
+                margin-top: 5px;
+            }
+
+            .document-list {
+                list-style: none;
+            }
+
+            .document-item {
+                padding: 12px;
+                border-bottom: 1px solid #f0f0f0;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+            .document-item:hover {
+                background: #f8f9fa;
+            }
+
+            .document-item h4 {
+                font-size: 14px;
+                color: #333;
+                margin-bottom: 5px;
+            }
+
+            .document-meta {
+                font-size: 12px;
+                color: #666;
+                display: flex;
+                gap: 15px;
+            }
+
+            .tag {
+                display: inline-block;
+                background: #e3f2fd;
+                color: #1976d2;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 11px;
+                margin-right: 5px;
+            }
+
+            .stakeholder-list {
+                list-style: none;
+            }
+
+            .stakeholder-item {
+                padding: 10px;
+                border-bottom: 1px solid #f0f0f0;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .stakeholder-avatar {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #0066cc 0%, #7cb342 100%);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .stakeholder-info h4 {
+                font-size: 13px;
+                color: #333;
+            }
+
+            .stakeholder-info p {
+                font-size: 11px;
+                color: #666;
+            }
+
+            .compliance-indicator {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px;
+                background: #f8f9fa;
+                border-radius: 6px;
+                margin-bottom: 10px;
+            }
+
+            .compliance-status {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+            }
+
+            .compliance-status.green {
+                background: #4caf50;
+            }
+
+            .compliance-status.yellow {
+                background: #ff9800;
+            }
+
+            .search-bar {
+                margin-bottom: 20px;
+            }
+
+            .search-bar input {
+                width: 100%;
+                padding: 12px 20px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                font-size: 14px;
+            }
+
+            .related-domains {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-top: 10px;
+            }
+
+            .domain-chip {
+                background: #f0f0f0;
+                padding: 8px 12px;
+                border-radius: 20px;
+                font-size: 12px;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+            .domain-chip:hover {
+                background: #e0e0e0;
+            }
+
+            @media (max-width: 1200px) {
+                .dashboard-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <div>
+                <h1>🏛️ Provincie Flevoland</h1>
+                <div style="font-size: 14px; opacity: 0.9; margin-top: 5px">
+                    Informatie Ondersteunde Werkomgeving
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">MJ</div>
+                <div>
+                    <div style="font-weight: 500">Maria Jansen</div>
+                    <div style="font-size: 12px; opacity: 0.9">
+                        Beleidsmedewerker Mobiliteit
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Context Selector -->
+            <div class="context-bar">
+                <div class="breadcrumb">
+                    Organisatie: <span>Provincie Flevoland</span> /
+                    <span>Project: Circulaire Economie 2025</span>
+                </div>
+                <select id="domainSelector">
+                    <option>Project: Circulaire Economie 2025</option>
+                    <option>Zaak: Subsidieaanvraag Windpark</option>
+                    <option>Beleid: Mobiliteitsvisie</option>
+                    <option>Project: Digitale Transformatie</option>
+                </select>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input
+                    type="text"
+                    placeholder="🔍 Zoek in documenten, zaken, projecten..."
+                    id="searchInput"
+                />
+            </div>
+
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Left Column: Apps & Tools -->
+                <div class="panel">
+                    <h2>
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"
+                            />
+                        </svg>
+                        Context Apps
+                    </h2>
+                    <div class="app-grid">
+                        <a
+                            href="apps/data-explorer.html"
+                            style="text-decoration: none; color: inherit"
+                        >
+                            <div class="app-card">
+                                <h3>📊 Data Explorer</h3>
+                                <p>Geo-data en statistieken</p>
+                                <span class="app-badge">Aanbevolen</span>
+                            </div>
+                        </a>
+                        <a
+                            href="apps/document-generator.html"
+                            style="text-decoration: none; color: inherit"
+                        >
+                            <div class="app-card">
+                                <h3>📝 Document Generator</h3>
+                                <p>Auto-metadata & compliance</p>
+                            </div>
+                        </a>
+                        <a
+                            href="apps/stakeholder-mapper.html"
+                            style="text-decoration: none; color: inherit"
+                        >
+                            <div class="app-card">
+                                <h3>👥 Stakeholder Mapper</h3>
+                                <p>Betrokken partijen</p>
+                            </div>
+                        </a>
+                        <a
+                            href="apps/compliance-checker.html"
+                            style="text-decoration: none; color: inherit"
+                        >
+                            <div class="app-card">
+                                <h3>✅ Compliance Checker</h3>
+                                <p>WOO & Archivering</p>
+                            </div>
+                        </a>
+                        <a
+                            href="apps/timeline-viewer.html"
+                            style="text-decoration: none; color: inherit"
+                        >
+                            <div class="app-card">
+                                <h3>📅 Timeline Viewer</h3>
+                                <p>Chronologisch overzicht</p>
+                            </div>
+                        </a>
+                        <a
+                            href="apps/collaboration-hub.html"
+                            style="text-decoration: none; color: inherit"
+                        >
+                            <div class="app-card">
+                                <h3>💬 Collaboration Hub</h3>
+                                <p>Chat & vergaderingen</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <h2 style="margin-top: 20px">⚖️ Compliance Status</h2>
+                    <div class="compliance-indicator">
+                        <div class="compliance-status green"></div>
+                        <div>
+                            <div style="font-weight: 500; font-size: 13px">
+                                Archivering
+                            </div>
+                            <div style="font-size: 11px; color: #666">
+                                By design ingeregeld
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliance-indicator">
+                        <div class="compliance-status green"></div>
+                        <div>
+                            <div style="font-weight: 500; font-size: 13px">
+                                WOO Gereed
+                            </div>
+                            <div style="font-size: 11px; color: #666">
+                                Metadata compleet
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliance-indicator">
+                        <div class="compliance-status yellow"></div>
+                        <div>
+                            <div style="font-weight: 500; font-size: 13px">
+                                AVG Check
+                            </div>
+                            <div style="font-size: 11px; color: #666">
+                                3 documenten te beoordelen
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Middle Column: Documents & Information -->
+                <div class="panel">
+                    <h2>
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
+                            />
+                        </svg>
+                        Recente Documenten
+                    </h2>
+                    <ul class="document-list">
+                        <li
+                            class="document-item"
+                            onclick="window.location.href='document-detail.html?id=1'"
+                            style="cursor: pointer"
+                        >
+                            <h4>Projectplan Circulaire Economie Q2 2025</h4>
+                            <div class="document-meta">
+                                <span>📄 PDF</span>
+                                <span>👤 Maria Jansen</span>
+                                <span>🕐 2 uur geleden</span>
+                            </div>
+                            <div style="margin-top: 5px">
+                                <span class="tag">beleid</span>
+                                <span class="tag">circulair</span>
+                                <span class="tag">WOO-relevant</span>
+                            </div>
+                        </li>
+                        <li
+                            class="document-item"
+                            onclick="window.location.href='document-detail.html?id=2'"
+                            style="cursor: pointer"
+                        >
+                            <h4>Advies Subsidieregeling Duurzame Energie</h4>
+                            <div class="document-meta">
+                                <span>📄 DOCX</span>
+                                <span>👤 Jan Bakker</span>
+                                <span>🕐 1 dag geleden</span>
+                            </div>
+                            <div style="margin-top: 5px">
+                                <span class="tag">subsidie</span>
+                                <span class="tag">energie</span>
+                            </div>
+                        </li>
+                        <li
+                            class="document-item"
+                            onclick="window.location.href='document-detail.html?id=3'"
+                            style="cursor: pointer"
+                        >
+                            <h4>Data-analyse Afvalstromen Flevoland 2024</h4>
+                            <div class="document-meta">
+                                <span>📊 XLSX</span>
+                                <span>👤 Sophie de Vries</span>
+                                <span>🕐 3 dagen geleden</span>
+                            </div>
+                            <div style="margin-top: 5px">
+                                <span class="tag">data</span>
+                                <span class="tag">analyse</span>
+                            </div>
+                        </li>
+                        <li
+                            class="document-item"
+                            onclick="window.location.href='document-detail.html?id=4'"
+                            style="cursor: pointer"
+                        >
+                            <h4>Raadsvoorstel Circulaire Inkoop</h4>
+                            <div class="document-meta">
+                                <span>📄 PDF</span>
+                                <span>👤 Maria Jansen</span>
+                                <span>🕐 1 week geleden</span>
+                            </div>
+                            <div style="margin-top: 5px">
+                                <span class="tag">besluit</span>
+                                <span class="tag">openbaar</span>
+                                <span class="tag">WOO-relevant</span>
+                            </div>
+                        </li>
+                        <li
+                            class="document-item"
+                            onclick="window.location.href='document-detail-woo.html'"
+                            style="cursor: pointer"
+                        >
+                            <h4>
+                                WOO-besluit Basiskaart Agrarische
+                                Bedrijfssituatie 2021
+                            </h4>
+                            <div class="document-meta">
+                                <span>📊 XLSX</span>
+                                <span>👤 Min. LNV</span>
+                                <span>🕐 07-10-2025</span>
+                            </div>
+                            <div style="margin-top: 5px">
+                                <span class="tag">WOO</span>
+                                <span class="tag">landbouw</span>
+                                <span class="tag">openbaar</span>
+                                <span class="tag">diergezondheid</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <h2 style="margin-top: 20px">
+                        🔗 Gerelateerde Projecten & Zaken
+                    </h2>
+                    <div class="related-domains">
+                        <div
+                            class="domain-chip"
+                            onclick="window.location.href='related-domains.html'"
+                        >
+                            📋 Zaak: Afvalverwerking Almere
+                        </div>
+                        <div
+                            class="domain-chip"
+                            onclick="window.location.href='related-domains.html'"
+                        >
+                            📊 Project: Duurzaamheidsmonitor
+                        </div>
+                        <div
+                            class="domain-chip"
+                            onclick="window.location.href='related-domains.html'"
+                        >
+                            📜 Beleid: Grondstoffenstrategie
+                        </div>
+                        <div
+                            class="domain-chip"
+                            onclick="window.location.href='related-domains.html'"
+                        >
+                            👥 Expertiseteam: Circulaire Economie
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Stakeholders & Collaboration -->
+                <div class="panel">
+                    <h2>
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M16 17V19H2V17S2 13 9 13 16 17 16 17M12.5 7.5A3.5 3.5 0 1 0 9 11A3.5 3.5 0 0 0 12.5 7.5M15.94 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13M15 4A3.39 3.39 0 0 0 13.07 4.59A5 5 0 0 1 13.07 10.41A3.39 3.39 0 0 0 15 11A3.5 3.5 0 0 0 15 4Z"
+                            />
+                        </svg>
+                        Betrokken Stakeholders
+                    </h2>
+                    <ul class="stakeholder-list">
+                        <li
+                            class="stakeholder-item"
+                            onclick="window.location.href='stakeholder-detail.html?id=1'"
+                            style="cursor: pointer"
+                        >
+                            <div class="stakeholder-avatar">MJ</div>
+                            <div class="stakeholder-info">
+                                <h4>Maria Jansen</h4>
+                                <p>Projectleider | Intern</p>
+                            </div>
+                        </li>
+                        <li
+                            class="stakeholder-item"
+                            onclick="window.location.href='stakeholder-detail.html?id=2'"
+                            style="cursor: pointer"
+                        >
+                            <div class="stakeholder-avatar">JB</div>
+                            <div class="stakeholder-info">
+                                <h4>Jan Bakker</h4>
+                                <p>Juridisch Adviseur | Intern</p>
+                            </div>
+                        </li>
+                        <li
+                            class="stakeholder-item"
+                            onclick="window.location.href='stakeholder-detail.html?id=3'"
+                            style="cursor: pointer"
+                        >
+                            <div class="stakeholder-avatar">SV</div>
+                            <div class="stakeholder-info">
+                                <h4>Sophie de Vries</h4>
+                                <p>Data-analist | Intern</p>
+                            </div>
+                        </li>
+                        <li
+                            class="stakeholder-item"
+                            onclick="window.location.href='stakeholder-detail.html?id=4'"
+                            style="cursor: pointer"
+                        >
+                            <div class="stakeholder-avatar">CE</div>
+                            <div class="stakeholder-info">
+                                <h4>Circulair Nederland</h4>
+                                <p>Externe Partner | Organisatie</p>
+                            </div>
+                        </li>
+                        <li
+                            class="stakeholder-item"
+                            onclick="window.location.href='stakeholder-detail.html?id=5'"
+                            style="cursor: pointer"
+                        >
+                            <div class="stakeholder-avatar">GA</div>
+                            <div class="stakeholder-info">
+                                <h4>Gemeente Almere</h4>
+                                <p>Samenwerkingspartner | Overheid</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <h2 style="margin-top: 20px">🤖 AI Suggesties</h2>
+                    <div
+                        style="
+                            background: #f8f9fa;
+                            padding: 12px;
+                            border-radius: 6px;
+                            font-size: 13px;
+                            margin-bottom: 10px;
+                            cursor: pointer;
+                        "
+                        onclick="window.location.href='ai-suggestions.html'"
+                    >
+                        <strong>Metadata voorstel:</strong> Document
+                        "Projectplan Q2" kan getagd worden met "subsidie" en
+                        "windenergie"
+                        <div style="margin-top: 8px">
+                            <button
+                                style="
+                                    padding: 5px 10px;
+                                    border: none;
+                                    background: #0066cc;
+                                    color: white;
+                                    border-radius: 4px;
+                                    cursor: pointer;
+                                    font-size: 11px;
+                                    margin-right: 5px;
+                                "
+                                onclick="event.stopPropagation(); window.location.href='ai-suggestions.html'"
+                            >
+                                Accepteren
+                            </button>
+                            <button
+                                style="
+                                    padding: 5px 10px;
+                                    border: 1px solid #ddd;
+                                    background: white;
+                                    border-radius: 4px;
+                                    cursor: pointer;
+                                    font-size: 11px;
+                                "
+                                onclick="event.stopPropagation(); window.location.href='ai-suggestions.html'"
+                            >
+                                Afwijzen
+                            </button>
+                        </div>
+                    </div>
+                    <div
+                        style="
+                            background: #f8f9fa;
+                            padding: 12px;
+                            border-radius: 6px;
+                            font-size: 13px;
+                            cursor: pointer;
+                        "
+                        onclick="window.location.href='ai-suggestions.html'"
+                    >
+                        <strong>Gerelateerd:</strong> Er zijn 3 eerdere
+                        projecten over circulaire economie die relevant kunnen
+                        zijn
+                        <div style="margin-top: 8px">
+                            <button
+                                style="
+                                    padding: 5px 10px;
+                                    border: none;
+                                    background: #0066cc;
+                                    color: white;
+                                    border-radius: 4px;
+                                    cursor: pointer;
+                                    font-size: 11px;
+                                "
+                                onclick="event.stopPropagation(); window.location.href='ai-suggestions.html'"
+                            >
+                                Toon projecten
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Context-aware interactie
+            function openApp(appType) {
+                const context = document.getElementById("domainSelector").value;
+                console.log(`Opening ${appType} in context: ${context}`);
+                alert(
+                    `App "${appType}" wordt geopend met context:\n${context}\n\nDe app krijgt automatisch toegang tot alle relevante data in deze context.`,
+                );
+            }
+
+            // Semantic search
+            document
+                .getElementById("searchInput")
+                .addEventListener("keypress", function (e) {
+                    if (e.key === "Enter") {
+                        const query = e.target.value;
+                        console.log(`Searching for: ${query}`);
+                        alert(
+                            `Context-aware zoeken naar: "${query}"\n\nZoekt in:\n- Huidige context\n- Gerelateerde domeinen\n- Alle toegankelijke informatie\n\nResultaten worden gefilterd op je rechten.`,
+                        );
+                    }
+                });
+
+            // Context switching
+            document
+                .getElementById("domainSelector")
+                .addEventListener("change", function (e) {
+                    console.log(`Context switched to: ${e.target.value}`);
+                    alert(
+                        `Context gewisseld naar:\n${e.target.value}\n\n- Apps worden opnieuw aanbevolen\n- Documenten worden gefilterd\n- Stakeholders worden bijgewerkt\n\nAlles automatisch aangepast aan nieuwe context!`,
+                    );
+                });
+        </script>
+    </body>
+</html>

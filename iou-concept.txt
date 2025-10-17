@@ -1,0 +1,247 @@
+Perspectief medewerker
+De voordelen van de nieuwe Informatie Ondersteunde Werkomgeving (IOW), geschreven vanuit
+het perspectief van een ambtelijke professional, zijn:
+
+De Nieuwe Digitale Werkomgeving: Eindelijk Focus op Ons Werk
+De huidige digitale omgeving is een "lappendeken van applicaties" en forceert ons vaak om "om
+belemmeringen heen te werken". De nieuwe aanpak lost dit op, zodat wij ons kunnen focussen
+op de inhoud van ons vakmanschap.
+1. Administratieve Lasten Verdwenen
+• Geautomatiseerde Compliance: Wet- en regelgeving zoals archivering, de AVG en de
+Wet Open Overheid (WOO) wordt integraal ‘onder de motorkap’ ingeregeld (by
+design). We worden ontlast van specialistische taken die niet direct bij de uitvoering
+van ons primaire werk horen.
+• Weg met Dubbele Invoer: We hoeven geen gegevens meer in te voeren die al elders
+bekend zijn. Systemen zijn gekoppeld en informatie wordt bij de bron opgehaald.
+2. Integraal en Intuïtief Werken
+• Alles Binnen Handbereik: We hoeven niet meer te zoeken naar werkgerelateerde
+informatie. Alle relevante documenten en data, die nu versnipperd zijn over verschillende
+silo’s, worden integraal en op maat getoond binnen de context van ons werk (de zaak,
+het project).
+• Eén Geïntegreerde Omgeving: De digitale werkruimte is vanuit ons perspectief één
+geïntegreerde omgeving, waardoor we niet continu hoeven in te loggen op talloze
+verschillende systemen.
+3. Vrijheid en Flexibiliteit (Regelruimte)
+• Organiseren op het Doel: Het systeem is georganiseerd op het te bereiken doel, niet
+op een rigide, vooraf vastgesteld proces. Dit betekent dat de processen minder
+dwingend worden.
+• Regelruimte voor Maatwerk: Wij krijgen de regelruimte om bij uitzonderingen en
+afwijkingen van het standaardproces zelf te bepalen wat nodig is om het doel te bereiken.
+Dit bevordert ons vakmanschap en maakt het werk zinvoller.
+4. Naadloze Samenwerking
+• Werken in Context: De informatiedomeinen (zaken, projecten) worden de
+samenwerkingsdomeinen. Samenwerking (inclusief mail, chat en documenten) is
+daardoor een automatisch onderdeel van ons werk en niet een aparte, omslachtige
+functionaliteit.
+• Organisatieonafhankelijk: We worden tijd-, plaats- en organisatieonafhankelijk
+ondersteund, wat multidisciplinaire samenwerking over organisatiegrenzen heen
+eenvoudiger maakt.
+
+Perspectief Organisatie
+De nieuwe benadering van de Informatie Ondersteunde Werkomgeving (IOW), gebaseerd op
+sociotechnische en integrale ontwerpprincipes, is strategisch essentieel voor een
+overheidsorganisatie die enerzijds te maken heeft met een toenemende hoeveelheid wet- en
+regelgeving, en anderzijds streeft naar optimale, responsieve dienstverlening aan burgers en
+bedrijven.
+Het huidige probleem is dat de complexiteit die de overheid zelf heeft georganiseerd (in wet- en
+regelgeving, processen, beleidsstapeling en IT-systemen) haar wendbaarheid en daarmee de
+dienstverlening aan burgers belemmert. De IOW lost deze structurele problemen op door een
+integrale visie op organisatie, arbeid, en informatietechnologie te hanteren.
+
+Hier zijn de belangrijkste voordelen vanuit het perspectief van de overheidsorganisatie:
+
+1. Naleving en Beheersbaarheid (Compliance by Design)
+Het grootste strategische voordeel is het vermogen om intrinsiek aan wettelijke en
+beleidsmatige eisen te voldoen, waardoor de reputatie en rechtsstatelijkheid worden
+gewaarborgd.
+• Wet- en Regelgeving Integraal Ingeregeld: Zoveel mogelijk wet- en regelgeving (zoals archivering, de
+Wet Open Overheid (WOO), de AVG en de BIO) wordt ‘by design’ vertaald en ingeregeld in de
+werkomgeving en werkprocessen. Dit principe wordt integraal toegepast over de volledige
+informatiewaardeketen.
+
+•
+
+Intrinsiek Veilige Informatiehuishouding: Door kaders en regels onder de motorkap in te regelen,
+ontstaat een werkomgeving die intrinsiek veilig is en voldoet aan de opgelegde eisen.
+
+•
+
+Kenbaarheid en Bestuurbaarheid: De informatievoorziening wordt gebaseerd op een model van de
+werkelijkheid (de organisatie, haar omgeving en bedrijfsregels). Dit model, inclusief de regelset, maakt
+de complexe informatiehuishouding expliciet en bestuurbaar (AL-5). Dit is cruciaal voor het actief
+regie voeren en het borgen van de kwaliteit van de informatiehuishouding (Kernwaarde 5).
+
+•
+
+Fijnmazige Autorisatie en Transparantie: Het model zorgt voor automatische jnmazige metadatering
+en maakt een jnmazig autorisatieschema mogelijk op basis van de rollen en functies van medewerkers.
+Dit ondersteunt de eis van openheid en transparantie aan de bron (Principe 1).
+
+•
+
+Eenvoudige Stuur- en Verantwoordingsinformatie: Omdat alle medewerkers binnen deze
+gestructureerde context werken, is het mogelijk om betrouwbare en actuele management- en
+stuurinformatie op relatief eenvoudige wijze uit de informatiehuishouding te genereren.
+
+2. Wendbaarheid en Optimale Dienstverlening
+De sociotechnische inrichting richt zich op het optimaliseren van de maatschappelijke taak
+door de organisatie wendbaar te maken en de ambtelijke professional maximaal te faciliteren.
+• Complexe Taken in een Eenvoudige Organisatie: De aanpak is gericht op het uitvoeren van
+complexe taken binnen een zo eenvoudig mogelijke organisatie. De IOW is exibel en aanpasbaar,
+wat noodzakelijk is in een snel veranderende omgeving.
+
+•
+
+Effectieve Uitvoering door Ontzorging: De ondersteuning via de informatievoorziening is zodanig dat
+de ambtelijke professional ontlast wordt van taken en activiteiten die niet direct bij de uitvoering
+van het werk horen (IL-3). Denk aan administratieve lasten en handmatige compliance-taken. Dit stelt
+hen in staat zich te concentreren op de primaire, kennisintensieve taak.
+
+•
+
+Optelsom van Kwaliteit: De organisatiekwaliteit is het resultaat van de som van de individuele
+werkkwaliteit. Door medewerkers optimaal te ondersteunen (GL-1), wordt een goed functionerende
+publieke organisatie gerealiseerd die de beoogde meerwaarde levert aan de maatschappij.
+
+•
+
+Faciliteren van Maatwerk en Responsiviteit: De organisatie wordt ingericht op het doel, niet op het
+rigide 'hoe' (OL-2). Dit geeft de ambtelijke professional de nodige regelruimte om bij afwijkingen alsnog
+het doel te realiseren. Regelruimte is niet synoniem met maatwerk, maar zorgt er wel voor dat meer
+zaken conform de bedoeling kunnen worden afgehandeld.
+
+•
+
+Interoperabiliteit en Samenwerking: Door de uniforme beschrijving van de organisatie en zijn
+omgeving in modellen, wordt de interoperabiliteit over organisatiegrenzen heen gerealiseerd. Dit is
+cruciaal voor het oplossen van complexe, ketenbrede maatschappelijke vraagstukken.
+
+De voorgestelde aanpak is geen revolutie, maar een evolutie in de inzet van technologie. Het
+gebruikt het bestaande applicatielandschap, waarbij de Organisatorische Context fungeert als
+een integrerend element (information middleware) dat de verbinding legt tussen alle bestaande
+versnipperde informatiesilo’s. Dit stelt de organisatie in staat om de huidige en toekomstige
+uitdagingen aan te gaan.
+
+Perspectief Architectuur
+
+fi
+
+fl
+
+fi
+
+Dit is een overzicht van de voordelen en de strategische positionering van de Informatie
+Ondersteunde Werkomgeving (IOW) en de bijbehorende Referentiearchitectuur, bezien
+vanuit het perspectief van de Enterprise Architectuurfunctie.
+
+De kern van deze benadering is de invoering van een modelgedreven architectuur om de
+huidige structurele tekortkomingen van de informatiehuishouding (IHH) te adresseren en
+tegelijkertijd te voldoen aan de strenge eisen van wendbaarheid, beheersbaarheid en
+compliance.
+
+Strategische Oplossing: De Organisatorische Context als Architecturale
+Kern
+De huidige informatiehuishouding is technologisch en functioneel versnipperd, gekenmerkt
+door een "lappendeken van applicaties" en informatiesilo’s. De ambitie van de architectuur is
+het structureel oplossen van dit fragmentatieprobleem en het realiseren van een integrale
+aanpak.
+Het centrale architectuurconcept dat dit mogelijk maakt, is het gebruik van de
+Organisatorische Context (OC), vastgelegd in een Informatiemodel.
+Voordelen voor de Architectuurfunctie:
+•
+
+Fundamentele Intelligentie: De OC, inclusief de bijbehorende regelset, is de plek in de
+architectuur waar de benodigde 'intelligentie' wordt ondergebracht. Dit is essentieel omdat de
+hoeveelheid kennis en regels die nodig is om de informatiehuishouding op orde te houden,
+exponentieel toeneemt.
+
+•
+
+Kenbaar en Bestuurbaar Maken (AL-5): De informatievoorziening wordt gebaseerd op dit
+model van de werkelijkheid (de organisatie, haar omgeving en bedrijfsregels). Hierdoor wordt
+de hele IHH expliciet, kenbaar en bestuurbaar.
+
+•
+
+Taak van de Architectuurfunctie: Het onderhouden en beheren van deze kennis (het OCmodel en de regelset)—waarbij geborgd wordt dat het model de werkelijkheid blijft
+weerspiegelen—is bij uitstek een taak voor de architectuurfunctie. Dit vereist wel een
+bepaalde volwassenheid van de architectuurfunctie.
+
+Integratie, Interoperabiliteit en Flexibiliteit
+De OC fungeert als een geïntegreerd element dat verschillende architectuurlagen en
+organisatieonderdelen met elkaar verbindt.
+Integrerend Element (Information Middleware): Het model fungeert als het integrerende
+element voor zowel informatie als applicatie, te zien als information middleware. Dit realiseert
+applicatie- en informatie-integratie binnen het bestaande applicatielandschap. Door deze
+modelmatige verbinding wordt de samenhang tussen de separate applicatie- en processilo’s
+hersteld.
+
+•
+
+Wendbare Architectuur (AL-0): De architectuur van de digitale werkomgeving is ontworpen
+om eenvoudig aanpasbaar en beheerbaar te zijn. De referentiearchitectuur is zodanig
+geformuleerd dat deze maximaal exibel/wendbaar is en een minimale beheerlast oplevert.
+
+•
+
+Geen Grote Sanering Nodig: De voorgestelde benadering kan worden geïmplementeerd
+door een ‘schil’ over het bestaande applicatielandschap te leggen. Dit betekent dat er geen
+grootschalige sanering van het applicatielandschap nodig is, maar dat het model wordt
+ingezet om bestaande bronnen beter te benutten. Het model geeft inzicht in de relatie tussen
+organisatie en informatie, wat veranderingen in architectuur en informatie sneller
+vertaalbaar maakt.
+
+•
+
+Interoperabiliteit Over Organisaties Heen: Interoperabiliteit (Hoofdprincipe 7) wordt
+gerealiseerd door de uniforme toepassing van de OC. Het op een uniforme wijze beschrijven
+van de organisatie en zijn omgeving vergroot de koppelbaarheid (bijvoorbeeld van
+organisatiemodellen naar ketenmodellen) en de uitwisselbaarheid van gegevens. Dit
+generieke architectuurconcept is van toepassing op alle archetypen (beleid, uitvoering, etc.)
+zonder dat dit de noodzakelijke interoperabiliteit in de weg staat.
+
+fl
+
+•
+
+Governance, Compliance en Data-integriteit
+Voor de architectuurfunctie is de waarborging van naleving van wet- en regelgeving cruciaal,
+vooral gezien de huidige problemen met transparantie en toegankelijkheid.
+•
+
+Compliance By Design (AL-2): Alle kaders en wet- en regelgeving, zoals archivering,
+WOO, AVG en BIO, worden integraal over de volledige informatiewaardeketen
+ingeregeld (by design). De werkomgeving voldoet hierdoor intrinsiek aan de opgelegde
+eisen. Dit ontlast de professional van beheertaken (IL-3).
+
+•
+
+Automatische Metadatering: Het informatiemodel fungeert als de bron voor alle
+metagegevens (AL-6). Door het principe van 'Werken in Context' wordt de context
+automatisch als metadata toegevoegd wanneer informatie wordt gecreëerd. Dit waarborgt
+de kwaliteit van de metagegevens, wat essentieel is voor zowel vindbaarheid (Principes 2 en
+6) als voor geautomatiseerde beslisregels (Principe 8).
+
+•
+
+Fijnmazige Autorisatie (IAM): De regelset gekoppeld aan het model maakt een jnmazig
+autorisatieschema mogelijk, gebaseerd op bedrijfslogica (rollen/functies) in plaats van
+systeemlogica. Dit ondersteunt het beginsel "alles is open, tenzij".
+
+•
+
+Stuurinformatie en Verantwoording: Omdat alle medewerkers in deze gestructureerde
+omgeving werken, wordt de vereiste optelsom van individuele informatieomgevingen naar een
+IHH op organisatieniveau gerealiseerd. Dit maakt het mogelijk om betrouwbare en actuele
+management- en stuurinformatie op relatief eenvoudige wijze uit de informatiehuishouding
+te genereren.
+
+fi
+
+fi
+
+De referentiearchitectuur biedt hiermee de conceptuele en methodologische grondslag
+om de kernwaarden van de IHH (zoals gede nieerd door het Nationaal Archief) via de
+werkomgeving van de ambtelijke professional structureel te realiseren.
+
+
