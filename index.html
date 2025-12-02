@@ -1,375 +1,365 @@
 <!doctype html>
 <html lang="nl">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>IOU Concept - Provincie Flevoland</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
 
-            body {
-                font-family: "Segoe UI", Arial, sans-serif;
-                background: linear-gradient(
-                    135deg,
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IOU Concept - Provincie Flevoland</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg,
                     #0066cc 0%,
                     #004c99 50%,
-                    #7cb342 100%
-                );
-                min-height: 100vh;
-                padding: 40px 20px;
-            }
+                    #7cb342 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
 
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-            }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-            header {
-                text-align: center;
-                color: white;
-                margin-bottom: 50px;
-            }
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
 
-            h1 {
-                font-size: 48px;
-                margin-bottom: 10px;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
 
-            .subtitle {
-                font-size: 20px;
-                opacity: 0.95;
-                margin-bottom: 10px;
-            }
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
 
-            .disclaimer {
-                background: rgba(255, 255, 255, 0.2);
-                padding: 15px 20px;
-                border-radius: 8px;
-                margin: 20px auto;
-                max-width: 800px;
-                font-size: 14px;
-                border-left: 4px solid #7cb342;
-            }
+        .disclaimer {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 800px;
+            font-size: 14px;
+            border-left: 4px solid #7cb342;
+        }
 
-            .demo-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-                gap: 25px;
-                margin-top: 40px;
-            }
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
 
-            .demo-card {
-                background: white;
-                border-radius: 12px;
-                padding: 30px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                transition:
-                    transform 0.3s,
-                    box-shadow 0.3s;
-                cursor: pointer;
-                text-decoration: none;
-                color: inherit;
-                display: block;
-            }
+        .demo-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition:
+                transform 0.3s,
+                box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
 
-            .demo-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-            }
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
 
-            .demo-icon {
-                font-size: 48px;
-                margin-bottom: 15px;
-            }
+        .demo-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
 
-            .demo-title {
-                font-size: 24px;
-                font-weight: 600;
-                color: #0066cc;
-                margin-bottom: 10px;
-            }
+        .demo-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
 
-            .demo-description {
-                color: #666;
-                font-size: 14px;
-                line-height: 1.6;
-                margin-bottom: 15px;
-            }
+        .demo-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
 
-            .demo-tags {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-top: 15px;
-            }
+        .demo-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
 
-            .tag {
-                background: #f0f0f0;
-                padding: 4px 12px;
-                border-radius: 12px;
-                font-size: 11px;
-                color: #666;
-                font-weight: 500;
-            }
+        .tag {
+            background: #f0f0f0;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #666;
+            font-weight: 500;
+        }
 
-            .tag.new {
-                background: #7cb342;
-                color: white;
-            }
+        .tag.new {
+            background: #7cb342;
+            color: white;
+        }
 
-            .tag.featured {
-                background: #ff9800;
-                color: white;
-            }
+        .tag.featured {
+            background: #ff9800;
+            color: white;
+        }
 
-            footer {
-                text-align: center;
-                color: white;
-                margin-top: 60px;
-                opacity: 0.9;
-                font-size: 14px;
-            }
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            opacity: 0.9;
+            font-size: 14px;
+        }
 
-            footer a {
-                color: white;
-                text-decoration: underline;
-            }
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
 
-            .section-title {
-                color: white;
-                font-size: 28px;
-                margin: 40px 0 20px 0;
-                padding-bottom: 10px;
-                border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <header>
-                <h1>🏛️ IOU Concept</h1>
-                <div class="subtitle">Informatie Ondersteunde Werkomgeving</div>
-                <div class="subtitle" style="font-size: 16px; opacity: 0.8">
-                    Provincie Flevoland
-                </div>
+        .section-title {
+            color: white;
+            font-size: 28px;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
 
-                <div class="disclaimer">
-                    ⚠️ <strong>Pilot Project:</strong> Dit IOU-concept wordt
-                    momenteel als pilot beproefd binnen Provincie Flevoland. Het
-                    is geen landelijk ingevoerd systeem.
-                </div>
-            </header>
-
-            <div class="section-title">📱 Hoofddemo's</div>
-            <div class="demo-grid">
-                <a href="src/frontend/context_dashboard.html" class="demo-card">
-                    <div class="demo-icon">🏠</div>
-                    <div class="demo-title">Context Dashboard</div>
-                    <div class="demo-description">
-                        Hoofddashboard met context-switcher, recente documenten,
-                        stakeholders en compliance status. Compleet overzicht
-                        van alle werkcontexten (zaken, projecten, beleid).
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag featured">Start hier</span>
-                        <span class="tag">Context-gedreven</span>
-                        <span class="tag">Flevoland huisstijl</span>
-                    </div>
-                </a>
-
-                <a href="src/frontend/graphrag-explorer.html" class="demo-card">
-                    <div class="demo-icon">🕸️</div>
-                    <div class="demo-title">GraphRAG Explorer</div>
-                    <div class="demo-description">
-                        Interactieve kennisgraaf visualisatie. Automatische
-                        ontdekking van context-relaties via entiteiten,
-                        communities en semantic similarity. Zie hoe domeinen
-                        verbonden zijn.
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag new">Nieuw!</span>
-                        <span class="tag">AI-powered</span>
-                        <span class="tag">Kennisgraaf</span>
-                    </div>
-                </a>
-
-                <a
-                    href="src/frontend/document-detail-woo.html"
-                    class="demo-card"
-                >
-                    <div class="demo-icon">📄</div>
-                    <div class="demo-title">Woo-besluit Voorbeeld</div>
-                    <div class="demo-description">
-                        Real-world voorbeeld van een Woo-besluit (Basiskaart
-                        Agrarische Bedrijfssituatie 2021). Compliance by design
-                        met volledige metadata, timeline en automatische
-                        archivering.
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag">Real data</span>
-                        <span class="tag">Compliance</span>
-                        <span class="tag">Woo</span>
-                    </div>
-                </a>
-
-                <a href="src/frontend/related-domains.html" class="demo-card">
-                    <div class="demo-icon">🔗</div>
-                    <div class="demo-title">Gerelateerde Domeinen</div>
-                    <div class="demo-description">
-                        Netwerk visualisatie van gerelateerde projecten en
-                        zaken. Ontdek verbindingen tussen verschillende
-                        contexten en zie welke domeinen met elkaar samenhangen.
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag">Netwerk</span>
-                        <span class="tag">Visualisatie</span>
-                    </div>
-                </a>
-
-                <a href="src/frontend/ai-suggestions.html" class="demo-card">
-                    <div class="demo-icon">🤖</div>
-                    <div class="demo-title">AI Metadata Suggesties</div>
-                    <div class="demo-description">
-                        Interactieve demo van AI-gegenereerde metadata
-                        suggesties. Bekijk, accepteer, wijzig of verwerp
-                        automatische classificaties, tags en bewaartermijnen.
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag">AI/ML</span>
-                        <span class="tag">Metadata</span>
-                        <span class="tag">Interactive</span>
-                    </div>
-                </a>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏛️ IOU Concept</h1>
+            <div class="subtitle">Informatie Ondersteunde Werkomgeving</div>
+            <div class="subtitle" style="font-size: 16px; opacity: 0.8">
+                Provincie Flevoland
             </div>
 
-            <div class="section-title">🔧 Context-Aware Applicaties</div>
-            <div class="demo-grid">
-                <a
-                    href="src/frontend/apps/data-verkenner.html"
-                    class="demo-card"
-                >
-                    <div class="demo-icon">📊</div>
-                    <div class="demo-title">Data Verkenner</div>
-                    <div class="demo-description">
-                        Interactieve kaart met OpenStreetMap integratie. Bekijk
-                        provinciale data, gemeentegrenzen en geografische
-                        informatie relevant voor de context.
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag">OpenStreetMap</span>
-                        <span class="tag">Geo-data</span>
-                    </div>
-                </a>
-
-                <a
-                    href="src/frontend/apps/belanghebbenden-kaart.html"
-                    class="demo-card"
-                >
-                    <div class="demo-icon">👥</div>
-                    <div class="demo-title">Belanghebbenden Kaart</div>
-                    <div class="demo-description">
-                        Netwerk visualisatie van betrokken partijen per context.
-                        Zie wie betrokken is bij projecten, zaken en beleid met
-                        hun rollen en relaties.
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag">Stakeholders</span>
-                        <span class="tag">Netwerk</span>
-                    </div>
-                </a>
-
-                <a
-                    href="src/frontend/apps/nalevingscontrole.html"
-                    class="demo-card"
-                >
-                    <div class="demo-icon">✅</div>
-                    <div class="demo-title">Nalevingscontrole</div>
-                    <div class="demo-description">
-                        Automatische controle op naleving van Woo, AVG, en
-                        Archiefwet. Real-time compliance dashboard met
-                        actiepunten en status.
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag">Compliance</span>
-                        <span class="tag">Automatisch</span>
-                    </div>
-                </a>
-
-                <a
-                    href="src/frontend/apps/tijdlijn-weergave.html"
-                    class="demo-card"
-                >
-                    <div class="demo-icon">📅</div>
-                    <div class="demo-title">Tijdlijn Weergave</div>
-                    <div class="demo-description">
-                        Chronologisch overzicht van alle activiteiten binnen een
-                        context. Zie de history en milestones van projecten en
-                        zaken.
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag">Timeline</span>
-                        <span class="tag">History</span>
-                    </div>
-                </a>
-
-                <a
-                    href="src/frontend/apps/samenwerkingscentrum.html"
-                    class="demo-card"
-                >
-                    <div class="demo-icon">💬</div>
-                    <div class="demo-title">Samenwerkingscentrum</div>
-                    <div class="demo-description">
-                        Real-time samenwerking binnen context. Communicatie,
-                        taakbeheer en documentdeling specifiek voor de actieve
-                        zaak of project.
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag">Collaboration</span>
-                        <span class="tag">Real-time</span>
-                    </div>
-                </a>
-
-                <a
-                    href="src/frontend/apps/document-generator.html"
-                    class="demo-card"
-                >
-                    <div class="demo-icon">📝</div>
-                    <div class="demo-title">Document Generator</div>
-                    <div class="demo-description">
-                        Genereer documenten op basis van sjablonen met
-                        automatische metadata. Context-aware templates voor
-                        besluiten, brieven en rapporten.
-                    </div>
-                    <div class="demo-tags">
-                        <span class="tag">Templates</span>
-                        <span class="tag">Automation</span>
-                    </div>
-                </a>
+            <div class="disclaimer">
+                ⚠️ <strong>Pilot Project:</strong> Dit IOU-concept wordt
+                momenteel als pilot beproefd binnen Provincie Flevoland. Het
+                is geen landelijk ingevoerd systeem.
             </div>
+        </header>
 
-            <footer>
-                <p>
-                    <strong>IOU Concept Demonstrator</strong> - Provincie
-                    Flevoland
-                </p>
-                <p style="margin-top: 10px">
-                    <a
-                        href="https://github.com/Terminal-WOO/iou-concept"
-                        target="_blank"
-                        >📦 GitHub Repository</a
-                    >
-                    | <a href="GRAPHRAG.md">📖 GraphRAG Documentatie</a> |
-                    <a href="README.md">📄 README</a>
-                </p>
-                <p style="margin-top: 15px; font-size: 12px; opacity: 0.7">
-                    Dit is een proof-of-concept voor educatieve doeleinden
-                </p>
-            </footer>
+        <div class="section-title">📱 Hoofddemo's</div>
+        <div class="demo-grid">
+            <a href="src/frontend/context_dashboard.html" class="demo-card">
+                <div class="demo-icon">🏠</div>
+                <div class="demo-title">Context Dashboard</div>
+                <div class="demo-description">
+                    Hoofddashboard met context-switcher, recente documenten,
+                    stakeholders en compliance status. Compleet overzicht
+                    van alle werkcontexten (zaken, projecten, beleid).
+                </div>
+                <div class="demo-tags">
+                    <span class="tag featured">Start hier</span>
+                    <span class="tag">Context-gedreven</span>
+                    <span class="tag">Flevoland huisstijl</span>
+                </div>
+            </a>
+
+            <a href="src/frontend/graphrag-explorer.html" class="demo-card">
+                <div class="demo-icon">🕸️</div>
+                <div class="demo-title">GraphRAG Explorer</div>
+                <div class="demo-description">
+                    Interactieve kennisgraaf visualisatie. Automatische
+                    ontdekking van context-relaties via entiteiten,
+                    communities en semantic similarity. Zie hoe domeinen
+                    verbonden zijn.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag new">Nieuw!</span>
+                    <span class="tag">AI-powered</span>
+                    <span class="tag">Kennisgraaf</span>
+                </div>
+            </a>
+
+            <a href="src/frontend/document-detail-woo.html" class="demo-card">
+                <div class="demo-icon">📄</div>
+                <div class="demo-title">Woo-besluit Voorbeeld</div>
+                <div class="demo-description">
+                    Real-world voorbeeld van een Woo-besluit (Basiskaart
+                    Agrarische Bedrijfssituatie 2021). Compliance by design
+                    met volledige metadata, timeline en automatische
+                    archivering.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag">Real data</span>
+                    <span class="tag">Compliance</span>
+                    <span class="tag">Woo</span>
+                </div>
+            </a>
+
+            <a href="src/frontend/related-domains.html" class="demo-card">
+                <div class="demo-icon">🔗</div>
+                <div class="demo-title">Gerelateerde Domeinen</div>
+                <div class="demo-description">
+                    Netwerk visualisatie van gerelateerde projecten en
+                    zaken. Ontdek verbindingen tussen verschillende
+                    contexten en zie welke domeinen met elkaar samenhangen.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag">Netwerk</span>
+                    <span class="tag">Visualisatie</span>
+                </div>
+            </a>
+
+            <a href="src/frontend/ai-suggestions.html" class="demo-card">
+                <div class="demo-icon">🤖</div>
+                <div class="demo-title">AI Metadata Suggesties</div>
+                <div class="demo-description">
+                    Interactieve demo van AI-gegenereerde metadata
+                    suggesties. Bekijk, accepteer, wijzig of verwerp
+                    automatische classificaties, tags en bewaartermijnen.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag">AI/ML</span>
+                    <span class="tag">Metadata</span>
+                    <span class="tag">Interactive</span>
+                </div>
+            </a>
         </div>
-    </body>
+
+        <div class="section-title">🔧 Context-Aware Applicaties</div>
+        <div class="demo-grid">
+            <a href="src/frontend/apps/medewerker-profiel.html" class="demo-card">
+                <div class="demo-icon">🆔</div>
+                <div class="demo-title">Mijn Profiel & Skills</div>
+                <div class="demo-description">
+                    Persoonlijk skills paspoort gebaseerd op <strong>CompetentNL</strong>.
+                    Slimme <strong>Common Ground</strong> matching op waarden en cultuur.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag new">Nieuw</span>
+                    <span class="tag">CompetentNL</span>
+                    <span class="tag">Common Ground</span>
+                </div>
+            </a>
+
+            <a href="src/frontend/apps/data-verkenner.html" class="demo-card">
+                <div class="demo-icon">📊</div>
+                <div class="demo-title">Data Verkenner</div>
+                <div class="demo-description">
+                    Interactieve kaart met OpenStreetMap integratie. Bekijk
+                    provinciale data, gemeentegrenzen en geografische
+                    informatie relevant voor de context.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag">OpenStreetMap</span>
+                    <span class="tag">Geo-data</span>
+                </div>
+            </a>
+
+            <a href="src/frontend/apps/belanghebbenden-kaart.html" class="demo-card">
+                <div class="demo-icon">👥</div>
+                <div class="demo-title">Belanghebbenden Kaart</div>
+                <div class="demo-description">
+                    Netwerk visualisatie van betrokken partijen per context.
+                    Zie wie betrokken is bij projecten, zaken en beleid met
+                    hun rollen en relaties.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag">Stakeholders</span>
+                    <span class="tag">Netwerk</span>
+                </div>
+            </a>
+
+            <a href="src/frontend/apps/nalevingscontrole.html" class="demo-card">
+                <div class="demo-icon">✅</div>
+                <div class="demo-title">Nalevingscontrole</div>
+                <div class="demo-description">
+                    Automatische controle op naleving van Woo, AVG, en
+                    Archiefwet. Real-time compliance dashboard met
+                    actiepunten en status.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag">Compliance</span>
+                    <span class="tag">Automatisch</span>
+                </div>
+            </a>
+
+            <a href="src/frontend/apps/tijdlijn-weergave.html" class="demo-card">
+                <div class="demo-icon">📅</div>
+                <div class="demo-title">Tijdlijn Weergave</div>
+                <div class="demo-description">
+                    Chronologisch overzicht van alle activiteiten binnen een
+                    context. Zie de history en milestones van projecten en
+                    zaken.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag">Timeline</span>
+                    <span class="tag">History</span>
+                </div>
+            </a>
+
+            <a href="src/frontend/apps/samenwerkingscentrum.html" class="demo-card">
+                <div class="demo-icon">💬</div>
+                <div class="demo-title">Samenwerkingscentrum</div>
+                <div class="demo-description">
+                    Real-time samenwerking binnen context. Communicatie,
+                    taakbeheer en documentdeling specifiek voor de actieve
+                    zaak of project.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag">Collaboration</span>
+                    <span class="tag">Real-time</span>
+                </div>
+            </a>
+
+            <a href="src/frontend/apps/document-generator.html" class="demo-card">
+                <div class="demo-icon">📝</div>
+                <div class="demo-title">Document Generator</div>
+                <div class="demo-description">
+                    Genereer documenten op basis van sjablonen met
+                    automatische metadata. Context-aware templates voor
+                    besluiten, brieven en rapporten.
+                </div>
+                <div class="demo-tags">
+                    <span class="tag">Templates</span>
+                    <span class="tag">Automation</span>
+                </div>
+            </a>
+        </div>
+
+        <footer>
+            <p>
+                <strong>IOU Concept Demonstrator</strong> - Provincie
+                Flevoland
+            </p>
+            <p style="margin-top: 10px">
+                <a href="https://github.com/Terminal-WOO/iou-concept" target="_blank">📦 GitHub Repository</a>
+                | <a href="GRAPHRAG.md">📖 GraphRAG Documentatie</a> |
+                <a href="README.md">📄 README</a>
+            </p>
+            <p style="margin-top: 15px; font-size: 12px; opacity: 0.7">
+                Dit is een proof-of-concept voor educatieve doeleinden
+            </p>
+        </footer>
+    </div>
+</body>
+
 </html>
